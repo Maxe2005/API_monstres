@@ -1,4 +1,4 @@
-package com.imt.Api_authentification.persistence.dto;
+package com.imt.Api_monstres.persistence.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

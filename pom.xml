@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.imt</groupId>
-    <artifactId>demo2026</artifactId>
+    <artifactId>com.imt.Api_monstres</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo2026</name>
+    <name>Api_monstres</name>
     <description>Demo project for Spring Boot</description>
     <url/>
     <licenses>

@@ -1,4 +1,4 @@
-package com.imt.Api_authentification.service.port;
+package com.imt.Api_monstres.service.port;
 
 public interface ProductPort {
 

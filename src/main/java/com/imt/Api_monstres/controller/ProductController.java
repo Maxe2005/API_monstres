@@ -1,4 +1,4 @@
-package com.imt.Api_authentification.controller;
+package com.imt.Api_monstres.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.imt.Api_authentification.controller.dto.input.ProductHttpDto;
-import com.imt.Api_authentification.controller.dto.output.ProductDto;
-import com.imt.Api_authentification.service.ProductService;
+import com.imt.Api_monstres.controller.dto.input.ProductHttpDto;
+import com.imt.Api_monstres.controller.dto.output.ProductDto;
+import com.imt.Api_monstres.service.ProductService;
 
 @RestController
 @RequestMapping("/products")

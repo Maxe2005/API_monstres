@@ -1,4 +1,4 @@
-package com.imt.Api_authentification.exception;
+package com.imt.Api_monstres.exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
