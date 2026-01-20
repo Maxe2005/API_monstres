@@ -1,4 +1,4 @@
-package com.imt.Api_monstres.exception;
+package com.imt.api_monstres.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
