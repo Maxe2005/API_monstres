@@ -2,6 +2,7 @@ package com.imt.Api_monstres.service;
 
 import com.imt.Api_monstres.Repository.MonsterRepository;
 import com.imt.Api_monstres.Repository.dto.MonsterMongoDto;
+import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
 import com.imt.Api_monstres.service.dto.MonsterServiceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.UUID;
 public class MonsterService {
 
     private final MonsterRepository monsterRepository;
+    private SkillService skillService;
 
     public String createMonster (MonsterServiceDto monsterServiceDto){
         String id = UUID.randomUUID().toString();
@@ -28,11 +30,15 @@ public class MonsterService {
         return monsterRepository.save(monsterToSave);
     }
 
-    public void deleteMonster(String id) {
+    public void deleteMonster (String id) {
+        List<SkillMongoDto> listSkills = skillService.getAllSkillsByMonsterId(id);
+        for (SkillMongoDto skill: listSkills) {
+            skillService.deleteSkill(skill.getSkillId());
+        }
         monsterRepository.delete(id);
     }
 
-    public MonsterMongoDto getMonsterById(String monsterId) {
+    public MonsterMongoDto getMonsterById (String monsterId) {
         return monsterRepository.findMonsterById(monsterId);
     }
 
@@ -41,7 +47,7 @@ public class MonsterService {
     }
 
     public void updateMonsterById(String id, MonsterMongoDto monsterMongoDto) {
-        MonsterMongoDto monsterToSave = new MonsterMongoDto(
+        MonsterMongoDto newMonsterToSave = new MonsterMongoDto(
                 id,
                 monsterMongoDto.getPlayerId(),
                 monsterMongoDto.getElement(),
@@ -49,6 +55,6 @@ public class MonsterService {
                 monsterMongoDto.getAtk(),
                 monsterMongoDto.getVit(),
                 monsterMongoDto.getSkillsList());
-        monsterRepository.update(monsterToSave);
+        monsterRepository.update(newMonsterToSave);
     }
 }
