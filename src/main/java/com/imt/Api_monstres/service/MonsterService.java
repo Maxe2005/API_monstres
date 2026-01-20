@@ -2,7 +2,7 @@ package com.imt.Api_monstres.service;
 
 import com.imt.Api_monstres.Repository.MonsterRepository;
 import com.imt.Api_monstres.Repository.dto.MonsterMongoDto;
-import com.imt.Api_monstres.service.dto.MonsterServiceDot;
+import com.imt.Api_monstres.service.dto.MonsterServiceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,20 +12,20 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class MonsterService {
+
     private final MonsterRepository monsterRepository;
-    //TODO : gérer playerid
-    public String createMonster (MonsterServiceDot monsterServiceDto){
+
+    public String createMonster (MonsterServiceDto monsterServiceDto){
         String id = UUID.randomUUID().toString();
         MonsterMongoDto monsterToSave = new MonsterMongoDto(
                 id,
-                monsterServiceDto.getPlayerId(),
+                null,
                 monsterServiceDto.getElement(),
                 monsterServiceDto.getHp(),
                 monsterServiceDto.getAtk(),
                 monsterServiceDto.getVit(),
                 monsterServiceDto.getSkillsList());
-        monsterRepository.save(monsterToSave);
-        return id;
+        return monsterRepository.save(monsterToSave);
     }
 
     public void deleteMonster(String id) {
@@ -41,7 +41,6 @@ public class MonsterService {
     }
 
     public void updateMonsterById(String id, MonsterMongoDto monsterMongoDto) {
-        //TODO : gérer playerid
         MonsterMongoDto monsterToSave = new MonsterMongoDto(
                 id,
                 monsterMongoDto.getPlayerId(),
@@ -50,6 +49,6 @@ public class MonsterService {
                 monsterMongoDto.getAtk(),
                 monsterMongoDto.getVit(),
                 monsterMongoDto.getSkillsList());
-        monsterRepository.save(monsterToSave);
+        monsterRepository.update(monsterToSave);
     }
 }

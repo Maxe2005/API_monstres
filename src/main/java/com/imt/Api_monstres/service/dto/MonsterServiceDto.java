@@ -9,8 +9,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 @Getter
 @RequiredArgsConstructor
-public class MonsterServiceDot {
-    private final String playerId;
+public class MonsterServiceDto {
     private final Elementary element;
     private final Double hp;
     private final Double atk;
