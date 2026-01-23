@@ -47,16 +47,17 @@ public class MonsterService {
         return monsterRepository.findAllByPlayerId(playerId);
     }
 
-    public void updateMonsterById(String id,String playerId, Elementary element, Double hp, Double atk, Double def, Double vit, List<SkillMongoDto> skillsList)  {
+    public void updateMonster(String monsterId, String playerId, Elementary element, Double hp, Double atk, Double def, Double vit, List<SkillMongoDto> skillsList)  {
+        MonsterMongoDto existingMonster = this.getMonsterById(monsterId);
         MonsterMongoDto newMonsterToSave = new MonsterMongoDto(
-                id,
-                playerId,
-                element,
-                hp,
-                atk,
-                def,
-                vit,
-                skillsList);
+                monsterId,
+                playerId != null ? playerId : existingMonster.getPlayerId(),
+                element != null ? element : existingMonster.getElement(),
+                hp != null ? hp : existingMonster.getHp(),
+                atk != null ? atk : existingMonster.getAtk(),
+                def != null ? def : existingMonster.getDef(),
+                vit != null ? vit : existingMonster.getVit(),
+                skillsList != null ? skillsList : existingMonster.getSkillsList());
         monsterRepository.update(newMonsterToSave);
     }
 }
