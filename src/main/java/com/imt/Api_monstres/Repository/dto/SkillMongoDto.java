@@ -18,6 +18,7 @@ public class SkillMongoDto {
     private final Double dmg;
     private final Ratio ratio;
     private final Integer cooldown;
+    private final Integer lvl;
     private final Integer lvlMax;
 }
 

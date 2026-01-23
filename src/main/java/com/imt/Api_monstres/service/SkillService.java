@@ -14,7 +14,8 @@ import java.util.UUID;
 public class SkillService {
     private final SkillRepository skillRepository;
 
-    public String createSkill (String monsterId, Integer num, Double dmg, Ratio ratio, Integer cooldown, Integer lvlMax){
+
+    public String createSkill (String monsterId, Integer num, Double dmg, Ratio ratio, Integer cooldown, Integer lvl, Integer lvlMax){
         String id = UUID.randomUUID().toString();
         SkillMongoDto skillToSave = new SkillMongoDto(
                 id,
@@ -23,31 +24,38 @@ public class SkillService {
                 dmg,
                 ratio,
                 cooldown,
+                lvl,
                 lvlMax);
         return skillRepository.save(skillToSave);
     }
+
 
     public void deleteSkill(String skillId){
         skillRepository.delete(skillId);
     }
 
+
     public SkillMongoDto getSkillById (String skillId) {
         return skillRepository.findSkillById(skillId);
     }
+
 
     public List<SkillMongoDto> getAllSkillsByMonsterId (String monsterId){
         return skillRepository.findAllByMonsterId(monsterId);
     }
 
-    public void update(String id, String monsterId, Integer num, Double dmg, Ratio ratio, Integer cooldown, Integer lvlMax){
+
+    public void updateSkill(String skillId, Integer num, Double dmg, Ratio ratio, Integer cooldown, Integer lvl){
+        SkillMongoDto existingMonster = this.getSkillById(skillId);
         SkillMongoDto newSkillToSave = new SkillMongoDto(
-                id,
-                monsterId,
-                num,
-                dmg,
-                ratio,
-                cooldown,
-                lvlMax);
+                skillId,
+                existingMonster.getMonsterId(),
+                num != null ? num : existingMonster.getNum(),
+                dmg != null ? dmg : existingMonster.getDmg(),
+                ratio != null ? ratio : existingMonster.getRatio(),
+                cooldown != null ? cooldown : existingMonster.getCooldown(),
+                lvl != null ? lvl : existingMonster.getLvl(),
+                existingMonster.getLvlMax());
         skillRepository.update(newSkillToSave);
     }
 }

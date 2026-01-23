@@ -6,7 +6,6 @@ import com.imt.Api_monstres.controller.dto.output.SkillOutputDto;
 import com.imt.Api_monstres.service.SkillService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.validator.constraints.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +28,7 @@ public class SkillController {
                 skillHttpDto.getDmg(),
                 skillHttpDto.getRatio(),
                 skillHttpDto.getCooldown(),
+                1,
                 skillHttpDto.getLvlMax());
         return ResponseEntity.status(HttpStatus.CREATED).body(skillId);
     }
@@ -46,6 +46,7 @@ public class SkillController {
                 skillMongoDto.getDmg(),
                 skillMongoDto.getRatio(),
                 skillMongoDto.getCooldown(),
+                skillMongoDto.getLvl(),
                 skillMongoDto.getLvlMax());
         return ResponseEntity.ok(skillToReturn);
     }
@@ -65,6 +66,7 @@ public class SkillController {
                     skill.getDmg(),
                     skill.getRatio(),
                     skill.getCooldown(),
+                    skill.getLvl(),
                     skill.getLvlMax());
             listToReturn.add(skillToReturn);
         }
@@ -77,8 +79,8 @@ public class SkillController {
         return ResponseEntity.ok("Skill deleted");
     }
 
-//    @PostMapping("/update/{skillId}")
-//    public ResponseEntity<String> update (@Valid String skillId, @Valid @RequestBody SkillHttpDto skillHttpDto) {
-//        skillService.update();
+//    @PostMapping("/updateSkill/{skillId}")
+//    public ResponseEntity<String> updateSkill (@Valid String skillId, @Valid @RequestBody SkillHttpDto skillHttpDto) {
+//        skillService.updateSkill();
 //    }
 }
