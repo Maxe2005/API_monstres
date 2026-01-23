@@ -3,7 +3,7 @@ package com.imt.Api_monstres.service;
 import com.imt.Api_monstres.Repository.MonsterRepository;
 import com.imt.Api_monstres.Repository.dto.MonsterMongoDto;
 import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
-import com.imt.Api_monstres.service.dto.MonsterServiceDto;
+import com.imt.Api_monstres.utils.Elementary;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +17,17 @@ public class MonsterService {
     private final MonsterRepository monsterRepository;
     private SkillService skillService;
 
-    public String createMonster (MonsterServiceDto monsterServiceDto){
+    public String createMonster (Elementary element, Double hp, Double atk, Double def, Double vit, List<SkillMongoDto> skillsList){
         String id = UUID.randomUUID().toString();
         MonsterMongoDto monsterToSave = new MonsterMongoDto(
                 id,
                 null,
-                monsterServiceDto.getElement(),
-                monsterServiceDto.getHp(),
-                monsterServiceDto.getAtk(),
-                monsterServiceDto.getVit(),
-                monsterServiceDto.getSkillsList());
+                element,
+                hp,
+                atk,
+                def,
+                vit,
+                skillsList);
         return monsterRepository.save(monsterToSave);
     }
 
@@ -46,15 +47,16 @@ public class MonsterService {
         return monsterRepository.findAllByPlayerId(playerId);
     }
 
-    public void updateMonsterById(String id, MonsterMongoDto monsterMongoDto) {
+    public void updateMonsterById(String id,String playerId, Elementary element, Double hp, Double atk, Double def, Double vit, List<SkillMongoDto> skillsList)  {
         MonsterMongoDto newMonsterToSave = new MonsterMongoDto(
                 id,
-                monsterMongoDto.getPlayerId(),
-                monsterMongoDto.getElement(),
-                monsterMongoDto.getHp(),
-                monsterMongoDto.getAtk(),
-                monsterMongoDto.getVit(),
-                monsterMongoDto.getSkillsList());
+                playerId,
+                element,
+                hp,
+                atk,
+                def,
+                vit,
+                skillsList);
         monsterRepository.update(newMonsterToSave);
     }
 }

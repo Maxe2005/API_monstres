@@ -1,6 +1,6 @@
 package com.imt.Api_monstres.Repository.dto;
 
-import com.imt.Api_monstres.Ratio;
+import com.imt.Api_monstres.utils.Ratio;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,7 +18,7 @@ public class SkillMongoDto {
     private final Double dmg;
     private final Ratio ratio;
     private final Integer cooldown;
-    private final Double lvlMax;
+    private final Integer lvlMax;
 }
 
 

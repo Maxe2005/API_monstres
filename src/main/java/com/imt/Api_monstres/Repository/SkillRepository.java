@@ -12,8 +12,9 @@ import java.util.List;
 public class SkillRepository {
     private final SkillMongoDao skillMongoDao;
 
-    public void save (SkillMongoDto skillMongoDto){
-        skillMongoDao.save(skillMongoDto);
+    public String save (SkillMongoDto skillMongoDto){
+        SkillMongoDto savedSkillDto = skillMongoDao.save(skillMongoDto);
+        return savedSkillDto.getSkillId();
     }
 
     public void delete (String id){

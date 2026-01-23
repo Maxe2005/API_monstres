@@ -1,6 +1,6 @@
 package com.imt.Api_monstres.Repository.dto;
 
-import com.imt.Api_monstres.Elementary;
+import com.imt.Api_monstres.utils.Elementary;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -19,6 +19,7 @@ public class MonsterMongoDto {
     private final Elementary element;
     private final Double hp;
     private final Double atk;
+    private final Double def;
     private final Double vit;
     private final List<SkillMongoDto> skillsList;
 }

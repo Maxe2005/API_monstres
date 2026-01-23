@@ -2,7 +2,7 @@ package com.imt.Api_monstres.service;
 
 import com.imt.Api_monstres.Repository.SkillRepository;
 import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
-import com.imt.Api_monstres.service.dto.SkillServiceDto;
+import com.imt.Api_monstres.utils.Ratio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +14,17 @@ import java.util.UUID;
 public class SkillService {
     private final SkillRepository skillRepository;
 
-    public void createSkill (SkillServiceDto skillServiceDto){
+    public String createSkill (String monsterId, Integer num, Double dmg, Ratio ratio, Integer cooldown, Integer lvlMax){
         String id = UUID.randomUUID().toString();
         SkillMongoDto skillToSave = new SkillMongoDto(
                 id,
-                skillServiceDto.getMonsterId(),
-                skillServiceDto.getNum(),
-                skillServiceDto.getDmg(),
-                skillServiceDto.getRatio(),
-                skillServiceDto.getCooldown(),
-                skillServiceDto.getLvlMax());
-        skillRepository.save(skillToSave);
+                monsterId,
+                num,
+                dmg,
+                ratio,
+                cooldown,
+                lvlMax);
+        return skillRepository.save(skillToSave);
     }
 
     public void deleteSkill(String skillId){
@@ -39,15 +39,15 @@ public class SkillService {
         return skillRepository.findAllByMonsterId(monsterId);
     }
 
-    public void update(String id, SkillMongoDto skillMongoDto){
+    public void update(String id, String monsterId, Integer num, Double dmg, Ratio ratio, Integer cooldown, Integer lvlMax){
         SkillMongoDto newSkillToSave = new SkillMongoDto(
                 id,
-                skillMongoDto.getMonsterId(),
-                skillMongoDto.getNum(),
-                skillMongoDto.getDmg(),
-                skillMongoDto.getRatio(),
-                skillMongoDto.getCooldown(),
-                skillMongoDto.getLvlMax());
+                monsterId,
+                num,
+                dmg,
+                ratio,
+                cooldown,
+                lvlMax);
         skillRepository.update(newSkillToSave);
     }
 }
