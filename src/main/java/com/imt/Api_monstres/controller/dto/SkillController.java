@@ -19,23 +19,23 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SkillController {
     private final SkillService skillService;
-
-    @PostMapping("/create")
-    public ResponseEntity<String> createSkill(@Valid String monsterId, @Valid @RequestBody SkillHttpDto skillHttpDto){
-        String skillId = skillService.createSkill(
-                monsterId,
-                skillHttpDto.getNum(),
-                skillHttpDto.getDmg(),
-                skillHttpDto.getRatio(),
-                skillHttpDto.getCooldown(),
-                1,
-                skillHttpDto.getLvlMax());
-        return ResponseEntity.status(HttpStatus.CREATED).body(skillId);
-    }
+// On crée les skills en même temps que les monstres
+//    @PostMapping("/create")
+//    public ResponseEntity<String> createSkill(@Valid String monsterId, @Valid @RequestBody SkillHttpDto skillHttpDto){
+//        SkillMongoDto skill = skillService.createSkill(
+//                monsterId,
+//                skillHttpDto.getNum(),
+//                skillHttpDto.getDmg(),
+//                skillHttpDto.getRatio(),
+//                skillHttpDto.getCooldown(),
+//                1,
+//                skillHttpDto.getLvlMax());
+//        return ResponseEntity.status(HttpStatus.CREATED).body(skill.getSkillId());
+//    }
 
     @GetMapping("/{skillId}")
     public ResponseEntity<SkillOutputDto> getSkillById(@Valid @PathVariable String skillId){
-        SkillMongoDto skillMongoDto = skillService.getSkillById(skillId);;
+        SkillMongoDto skillMongoDto = skillService.getSkillById(skillId);
         if (skillMongoDto == null){
             return ResponseEntity.notFound().build();
         }
@@ -53,7 +53,7 @@ public class SkillController {
 
     @GetMapping("/{monsterId}")
     public ResponseEntity<List<SkillOutputDto>> getAllSkillsByMonsterId(@Valid @PathVariable String monsterId){
-        List<SkillMongoDto> listSkills = skillService.getAllSkillsByMonsterId(monsterId);;
+        List<SkillMongoDto> listSkills = skillService.getAllSkillsByMonsterId(monsterId);
         List<SkillOutputDto> listToReturn = new ArrayList<>();
         if (listSkills.isEmpty()){
             return ResponseEntity.notFound().build();

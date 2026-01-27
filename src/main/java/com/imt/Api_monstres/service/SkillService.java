@@ -15,7 +15,7 @@ public class SkillService {
     private final SkillRepository skillRepository;
 
 
-    public String createSkill (String monsterId, Integer num, Double dmg, Ratio ratio, Integer cooldown, Integer lvl, Integer lvlMax){
+    public SkillMongoDto createSkill (String monsterId, Integer num, Double dmg, Ratio ratio, Integer cooldown, Integer lvl, Integer lvlMax){
         String id = UUID.randomUUID().toString();
         SkillMongoDto skillToSave = new SkillMongoDto(
                 id,
