@@ -6,7 +6,6 @@ import com.imt.Api_monstres.controller.dto.output.SkillOutputDto;
 import com.imt.Api_monstres.service.SkillService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,7 +50,7 @@ public class SkillController {
         return ResponseEntity.ok(skillToReturn);
     }
 
-    @GetMapping("/{monsterId}")
+    @GetMapping("/byMonsterId/{monsterId}")
     public ResponseEntity<List<SkillOutputDto>> getAllSkillsByMonsterId(@Valid @PathVariable String monsterId){
         List<SkillMongoDto> listSkills = skillService.getAllSkillsByMonsterId(monsterId);
         List<SkillOutputDto> listToReturn = new ArrayList<>();
