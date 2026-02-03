@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,7 @@ public class MonsterService {
             "8", "magma-drakon",
             "9", "pyrolosse",
             "10", "zephirion");
-    
+
     public synchronized String generateNewMonsterId() {
         COUNT_ID += 1;
         if (COUNT_ID > ID_TO_MONSTER_NAME.size()) {
@@ -52,5 +54,16 @@ public class MonsterService {
         } catch (IOException exception) {
             throw new UncheckedIOException("Impossible de lire le fichier JSON du monstre: " + monsterName, exception);
         }
+    }
+
+    public Set<String> getMissingMonsterIds(List<String> monsterIds) {
+        if (monsterIds == null || monsterIds.isEmpty()) {
+            return Set.of();
+        }
+
+        return monsterIds.stream()
+                .map(id -> id == null ? null : id.trim())
+                .filter(id -> id == null || !ID_TO_MONSTER_NAME.containsKey(id))
+                .collect(java.util.stream.Collectors.toSet());
     }
 }
