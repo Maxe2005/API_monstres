@@ -72,6 +72,19 @@
     </dependencies>
 
     <build>
+        <!-- A suprimer : -->
+        <resources> 
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.json</include>
+                </includes>
+            </resource>
+        </resources>
+        <!-- Fin du "A supprimer" -->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
