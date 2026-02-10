@@ -9,10 +9,11 @@ import com.imt.api_monstres.enums.Rank;
 @AllArgsConstructor
 public class SkillForMonsterDto {
 
-    private final int number;
-    private final double damage;
-    private final RatioDto ratio;
-    private final double cooldown;
-    private final double lvlMax;
-    private final Rank rank;
+    private String name;
+    private String description;
+    private long damage;
+    private RatioDto ratio;
+    private long cooldown;
+    private long lvlMax;
+    private Rank rank;
 }

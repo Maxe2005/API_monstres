@@ -11,12 +11,20 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class CreateMonsterRequest {
-
+    private String name;
     private Elementary element;
-    private Integer hp;
-    private Integer atk;
-    private Integer def;
-    private Integer vit;
-    private List<SkillForMonsterDto> skills;
+    private StatsDto stats;
     private Rank rank;
+    private String cardDescription;
+    private String imageUrl;
+    private List<SkillForMonsterDto> skills;
+
+    @Getter
+    @AllArgsConstructor
+    class StatsDto {
+        private long hp;
+        private long atk;
+        private long def;
+        private long vit;
+    }
 }
