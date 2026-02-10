@@ -4,10 +4,12 @@ import com.imt.api_monstres.enums.Stat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class RatioDto {
-    private final Stat stat;
-    private final double percent;
+    private Stat stat;
+    private double percent;
 }

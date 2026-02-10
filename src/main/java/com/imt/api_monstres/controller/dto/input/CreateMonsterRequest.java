@@ -5,11 +5,13 @@ import com.imt.api_monstres.enums.Rank;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class CreateMonsterRequest {
     private String name;
     private Elementary element;
