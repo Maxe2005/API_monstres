@@ -18,13 +18,4 @@ public class CreateMonsterRequest {
     private String cardDescription;
     private String imageUrl;
     private List<SkillForMonsterDto> skills;
-
-    @Getter
-    @AllArgsConstructor
-    class StatsDto {
-        private long hp;
-        private long atk;
-        private long def;
-        private long vit;
-    }
 }
