@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//TODO: Ajouter @Operation, @ApiResponse, @Parameter et @Tag pour la doc swagger
+// Ajouter des Try catch pour les erreurs, et faire en sorte que les delete ne renvoient pas d'erreur si le monstre n'existe pas
+
 @RestController
 @RequestMapping("api/monsters")
 @RequiredArgsConstructor
@@ -49,15 +53,15 @@ public class MonsterController {
 
     @GetMapping("/byPlayerId/{playerId}")
     public ResponseEntity<List<MonsterOutputDto>> getMonsterByPlayerId(@Valid @PathVariable String playerId) {
-        List<MonsterMongoDto> ListMonsters = monsterService.getAllMonstersByPlayerId(playerId);
-        if (ListMonsters.isEmpty()) {
+        List<MonsterMongoDto> listMonsters = monsterService.getAllMonstersByPlayerId(playerId);
+        if (listMonsters.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        List<MonsterOutputDto> ListToReturn = new ArrayList<>();
-        for (MonsterMongoDto monster: ListMonsters){
-            ListToReturn.add(getMonsterOutputDto(monster));
+        List<MonsterOutputDto> listToReturn = new ArrayList<>();
+        for (MonsterMongoDto monster: listMonsters){
+            listToReturn.add(getMonsterOutputDto(monster));
         }
-        return ResponseEntity.ok(ListToReturn);
+        return ResponseEntity.ok(listToReturn);
     }
 
     @DeleteMapping("/{monsterId}")
@@ -67,7 +71,7 @@ public class MonsterController {
     }
 
     @PostMapping("/updateMonster/{monsterId}")
-    public ResponseEntity<MonsterOutputDto> updateMonster (@Valid String monsterId, @Valid String playerId,  @Valid @RequestBody MonsterHttpDto monsterHttpDto) {
+    public ResponseEntity<MonsterOutputDto> updateMonster (@Valid @PathVariable String monsterId, @Valid String playerId,  @Valid @RequestBody MonsterHttpDto monsterHttpDto) {
         monsterService.updateMonster(
                 monsterId,
                 playerId,

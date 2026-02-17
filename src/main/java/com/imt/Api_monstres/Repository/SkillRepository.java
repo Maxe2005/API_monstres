@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -20,8 +21,8 @@ public class SkillRepository {
         skillMongoDao.deleteById(id);
     }
 
-    public SkillMongoDto findSkillById (String skillId) {
-        return skillMongoDao.findById(skillId).orElse(null);
+    public Optional<SkillMongoDto> findSkillById (String skillId) {
+        return skillMongoDao.findById(skillId);
     }
 
     public List<SkillMongoDto> findAllByMonsterId (String monsterId){

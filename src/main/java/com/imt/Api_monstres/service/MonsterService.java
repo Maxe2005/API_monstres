@@ -46,15 +46,19 @@ public class MonsterService {
     }
 
     public void deleteMonster (String id) {
-        List<SkillMongoDto> listSkills = skillService.getAllSkillsByMonsterId(id);
-        for (SkillMongoDto skill: listSkills) {
-            skillService.deleteSkill(skill.getSkillId());
+        if (monsterRepository.findMonsterById(id).isPresent()) {
+            List<SkillMongoDto> listSkills = skillService.getAllSkillsByMonsterId(id);
+            for (SkillMongoDto skill: listSkills) {
+                skillService.deleteSkill(skill.getSkillId());
+            }
+            monsterRepository.delete(id);
+        } else {
+            throw new RuntimeException("Monstre introuvable :" + id);
         }
-        monsterRepository.delete(id);
     }
 
     public MonsterMongoDto getMonsterById (String monsterId) {
-        return monsterRepository.findMonsterById(monsterId);
+        return monsterRepository.findMonsterById(monsterId).orElseThrow(() -> new RuntimeException("Monstre introuvable : " + monsterId));
     }
 
     public List<MonsterMongoDto> getAllMonstersByPlayerId(String playerId){

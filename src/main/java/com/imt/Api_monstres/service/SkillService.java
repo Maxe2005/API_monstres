@@ -31,14 +31,16 @@ public class SkillService {
 
 
     public void deleteSkill(String skillId){
-        skillRepository.delete(skillId);
+        if (skillRepository.findSkillById(skillId).isPresent()) {
+            skillRepository.delete(skillId);
+        } else {
+            throw new RuntimeException("Skill introuvable :" + skillId);
+        }
     }
-
 
     public SkillMongoDto getSkillById (String skillId) {
-        return skillRepository.findSkillById(skillId);
+        return skillRepository.findSkillById(skillId).orElseThrow(() -> new RuntimeException("Skill introuvable :" + skillId));
     }
-
 
     public List<SkillMongoDto> getAllSkillsByMonsterId (String monsterId){
         return skillRepository.findAllByMonsterId(monsterId);

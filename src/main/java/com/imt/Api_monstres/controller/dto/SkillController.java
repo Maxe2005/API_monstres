@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+//TODO: Ajouter @Operation, @ApiResponse, @Parameter et @Tag pour la doc swagger
+// Ajouter des Try catch pour les erreurs, et faire en sorte que les delete ne renvoient pas d'erreur si le skill n'existe pas
 @RestController
 @RequestMapping("api/monsters/skills")
 @RequiredArgsConstructor
@@ -79,7 +80,7 @@ public class SkillController {
     }
 
     @PostMapping("/updateSkill/{skillId}")
-    public ResponseEntity<SkillOutputDto> updateSkill (@Valid String skillId, @Valid @RequestBody SkillHttpDto skillHttpDto) {
+    public ResponseEntity<SkillOutputDto> updateSkill (@Valid @PathVariable String skillId, @Valid @RequestBody SkillHttpDto skillHttpDto) {
         skillService.updateSkill(
                 skillId,
                 skillHttpDto.getNum(),

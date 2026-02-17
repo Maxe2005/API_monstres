@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 
 
@@ -24,8 +25,8 @@ public class MonsterRepository {
         monsterMongoDao.deleteById(id);
     }
 
-    public MonsterMongoDto findMonsterById (String monsterId) {
-        return monsterMongoDao.findById(monsterId).orElse(null);
+    public Optional<MonsterMongoDto> findMonsterById (String monsterId) {
+        return monsterMongoDao.findById(monsterId);
     }
 
     public List<MonsterMongoDto> findAllByPlayerId (String playerId){
