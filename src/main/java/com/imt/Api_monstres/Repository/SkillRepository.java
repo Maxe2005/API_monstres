@@ -3,18 +3,19 @@ package com.imt.Api_monstres.Repository;
 import com.imt.Api_monstres.Repository.dao.SkillMongoDao;
 import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Repository
 @RequiredArgsConstructor
 public class SkillRepository {
     private final SkillMongoDao skillMongoDao;
 
-    public SkillMongoDto save (SkillMongoDto skillMongoDto){
-        return skillMongoDao.save(skillMongoDto);
+    public String save (SkillMongoDto skillMongoDto){
+        SkillMongoDto skill = skillMongoDao.save(skillMongoDto);
+        return skill.getSkillId();
     }
 
     public void delete (String id){

@@ -21,5 +21,5 @@ public class MonsterMongoDto {
     private final Double atk;
     private final Double def;
     private final Double vit;
-    private final List<SkillMongoDto> skillsList;
+    private final List<String> skillIds;
 }

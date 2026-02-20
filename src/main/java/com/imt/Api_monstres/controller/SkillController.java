@@ -1,4 +1,4 @@
-package com.imt.Api_monstres.controller.dto;
+package com.imt.Api_monstres.controller;
 
 import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
 import com.imt.Api_monstres.controller.dto.input.SkillHttpDto;

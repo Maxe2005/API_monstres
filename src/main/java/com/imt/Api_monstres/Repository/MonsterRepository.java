@@ -4,14 +4,14 @@ import com.imt.Api_monstres.Repository.dao.MonsterMongoDao;
 import com.imt.Api_monstres.Repository.dto.MonsterMongoDto;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 
 
-@Component
+@Repository
 @RequiredArgsConstructor
 public class MonsterRepository {
     private final MonsterMongoDao monsterMongoDao;

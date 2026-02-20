@@ -16,5 +16,5 @@ public class MonsterOutputDto {
     private final Double atk;
     private final Double def;
     private final Double vit;
-    private final List<SkillOutputDto> skillsList;
+    private final List<String> skillIds;
 }

@@ -1,10 +1,9 @@
-package com.imt.Api_monstres.controller.dto;
+package com.imt.Api_monstres.controller;
 
 import com.imt.Api_monstres.Repository.dto.MonsterMongoDto;
 import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
 import com.imt.Api_monstres.controller.dto.input.MonsterHttpDto;
 import com.imt.Api_monstres.controller.dto.output.MonsterOutputDto;
-import com.imt.Api_monstres.controller.dto.output.SkillOutputDto;
 import com.imt.Api_monstres.service.MonsterService;
 import com.imt.Api_monstres.service.SkillService;
 import jakarta.annotation.Nonnull;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 //TODO: Ajouter @Operation, @ApiResponse, @Parameter et @Tag pour la doc swagger
@@ -70,37 +70,24 @@ public class MonsterController {
         return ResponseEntity.ok("Monster deleted");
     }
 
-    @PostMapping("/updateMonster/{monsterId}")
-    public ResponseEntity<MonsterOutputDto> updateMonster (@Valid @PathVariable String monsterId, @Valid String playerId,  @Valid @RequestBody MonsterHttpDto monsterHttpDto) {
+        @PostMapping("/updateMonster/{monsterId}")
+        public ResponseEntity<MonsterOutputDto> updateMonster (@Valid @PathVariable String monsterId, @Valid String playerId,  @Valid @RequestBody MonsterHttpDto monsterHttpDto) {
         monsterService.updateMonster(
-                monsterId,
-                playerId,
-                monsterHttpDto.getElement(),
-                monsterHttpDto.getHp(),
-                monsterHttpDto.getAtk(),
-                monsterHttpDto.getDef(),
-                monsterHttpDto.getVit(),
-                skillService.getAllSkillsByMonsterId(monsterId));
+            monsterId,
+            playerId,
+            monsterHttpDto.getElement(),
+            monsterHttpDto.getHp(),
+            monsterHttpDto.getAtk(),
+            monsterHttpDto.getDef(),
+            monsterHttpDto.getVit(),
+            monsterHttpDto.getSkillsList());
         MonsterMongoDto monsterMongoDto = monsterService.getMonsterById(monsterId);
         MonsterOutputDto monsterToReturn = getMonsterOutputDto(monsterMongoDto);
         return ResponseEntity.ok(monsterToReturn);
-    }
+        }
 
     @Nonnull
     private static MonsterOutputDto getMonsterOutputDto (MonsterMongoDto monsterMongoDto) {
-        List<SkillOutputDto> skillsList = new ArrayList<>();
-        for (SkillMongoDto skill : monsterMongoDto.getSkillsList()) {
-            SkillOutputDto skillToReturn = new SkillOutputDto(
-                    skill.getSkillId(),
-                    skill.getMonsterId(),
-                    skill.getNum(),
-                    skill.getDmg(),
-                    skill.getRatio(),
-                    skill.getCooldown(),
-                    skill.getLvl(),
-                    skill.getLvlMax());
-            skillsList.add(skillToReturn);
-        }
         return new MonsterOutputDto(
                 monsterMongoDto.getMonsterId(),
                 monsterMongoDto.getPlayerId(),
@@ -109,6 +96,6 @@ public class MonsterController {
                 monsterMongoDto.getAtk(),
                 monsterMongoDto.getDef(),
                 monsterMongoDto.getVit(),
-                skillsList);
+                monsterMongoDto.getSkillIds());
     }
 }
