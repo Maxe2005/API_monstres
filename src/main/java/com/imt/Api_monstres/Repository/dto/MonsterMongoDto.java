@@ -1,12 +1,14 @@
 package com.imt.Api_monstres.Repository.dto;
 
-import com.imt.Api_monstres.utils.Elementary;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import java.util.List;
+import com.imt.Api_monstres.utils.Elementary;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
@@ -21,5 +23,5 @@ public class MonsterMongoDto {
     private final Double atk;
     private final Double def;
     private final Double vit;
-    private final List<String> skillIds;
+    private final List<String> skills;
 }

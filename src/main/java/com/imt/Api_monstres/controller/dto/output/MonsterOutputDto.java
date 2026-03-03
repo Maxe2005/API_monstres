@@ -1,10 +1,11 @@
 package com.imt.Api_monstres.controller.dto.output;
 
+import java.util.List;
+
 import com.imt.Api_monstres.utils.Elementary;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
@@ -16,5 +17,5 @@ public class MonsterOutputDto {
     private final Double atk;
     private final Double def;
     private final Double vit;
-    private final List<String> skillIds;
+    private final List<String> skills;
 }

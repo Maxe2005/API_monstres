@@ -1,13 +1,15 @@
 package com.imt.Api_monstres.service;
 
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.stereotype.Service;
+
 import com.imt.Api_monstres.Repository.SkillRepository;
 import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
 import com.imt.Api_monstres.utils.Ratio;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -15,13 +17,13 @@ public class SkillService {
     private final SkillRepository skillRepository;
 
 
-    public String createSkill (String monsterId, Integer num, Double dmg, Ratio ratio, Integer cooldown, Integer lvl, Integer lvlMax){
+    public String createSkill (String monsterId, Integer number, Double damage, Ratio ratio, Double cooldown, Double lvl, Double lvlMax){
         String id = UUID.randomUUID().toString();
         SkillMongoDto skillToSave = new SkillMongoDto(
                 id,
                 monsterId,
-                num,
-                dmg,
+                number,
+                damage,
                 ratio,
                 cooldown,
                 lvl,
@@ -47,13 +49,13 @@ public class SkillService {
     }
 
 
-    public void updateSkill(String skillId, Integer num, Double dmg, Ratio ratio, Integer cooldown, Integer lvl){
+    public void updateSkill(String skillId, Integer num, Double dmg, Ratio ratio, Double cooldown, Double lvl){
         SkillMongoDto existingSkill = this.getSkillById(skillId);
         SkillMongoDto newSkillToSave = new SkillMongoDto(
                 skillId,
                 existingSkill.getMonsterId(),
-                num != null ? num : existingSkill.getNum(),
-                dmg != null ? dmg : existingSkill.getDmg(),
+                num != null ? num : existingSkill.getNumber(),
+                dmg != null ? dmg : existingSkill.getDamage(),
                 ratio != null ? ratio : existingSkill.getRatio(),
                 cooldown != null ? cooldown : existingSkill.getCooldown(),
                 lvl != null ? lvl : existingSkill.getLvl(),

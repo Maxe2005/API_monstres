@@ -25,11 +25,11 @@ public class MonsterService {
         for (SkillHttpDto skill: skillsList) {
             String skillCreated = skillService.createSkill(
                     monsterId,
-                    skill.getNum(),
-                    skill.getDmg(),
+                    skill.getNumber(),
+                    skill.getDamage(),
                     skill.getRatio(),
                     skill.getCooldown(),
-                    skill.getLvl(),
+                    skill.getLvlMax(),
                     skill.getLvlMax());
             skillIds.add(skillCreated);
         }
@@ -77,8 +77,8 @@ public class MonsterService {
             for (SkillHttpDto sk : skillHttpList) {
                 String created = skillService.createSkill(
                         monsterId,
-                        sk.getNum(),
-                        sk.getDmg(),
+                        sk.getNumber(),
+                        sk.getDamage(),
                         sk.getRatio(),
                         sk.getCooldown(),
                         sk.getLvl(),
@@ -86,9 +86,9 @@ public class MonsterService {
                 finalSkillIds.add(created);
             }
         } else {
-            // keep existing skills if no new list provided
-            if (existingMonster.getSkillIds() != null) {
-                finalSkillIds.addAll(existingMonster.getSkillIds());
+            // garde les skills existants si aucune nouvelle liste n'est fournie
+            if (existingMonster.getSkills() != null) {
+                finalSkillIds.addAll(existingMonster.getSkills());
             }
         }
 

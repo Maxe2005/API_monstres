@@ -1,19 +1,20 @@
 package com.imt.Api_monstres.controller.dto.input;
 
+import java.util.List;
+
 import com.imt.Api_monstres.utils.Elementary;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
 public class MonsterHttpDto {
-    private final Elementary element;
-    private final double hp;
-    private final double atk;
-    private final double def;
-    private final double vit;
-    private final List<SkillHttpDto> skillsList;
+    private final Elementary element; 
+    private final Double hp;
+    private final Double atk;
+    private final Double def;
+    private final Double vit;
+    private final List<SkillHttpDto> skills;
 
 }

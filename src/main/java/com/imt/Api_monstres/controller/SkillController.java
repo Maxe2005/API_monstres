@@ -1,16 +1,24 @@
 package com.imt.Api_monstres.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
 import com.imt.Api_monstres.controller.dto.input.SkillHttpDto;
 import com.imt.Api_monstres.controller.dto.output.SkillOutputDto;
 import com.imt.Api_monstres.service.SkillService;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 //TODO: Ajouter @Operation, @ApiResponse, @Parameter et @Tag pour la doc swagger
 // Ajouter des Try catch pour les erreurs, et faire en sorte que les delete ne renvoient pas d'erreur si le skill n'existe pas
@@ -42,8 +50,8 @@ public class SkillController {
         SkillOutputDto skillToReturn = new SkillOutputDto(
                 skillMongoDto.getSkillId(),
                 skillMongoDto.getMonsterId(),
-                skillMongoDto.getNum(),
-                skillMongoDto.getDmg(),
+                skillMongoDto.getNumber(),
+                skillMongoDto.getDamage(),
                 skillMongoDto.getRatio(),
                 skillMongoDto.getCooldown(),
                 skillMongoDto.getLvl(),
@@ -62,8 +70,8 @@ public class SkillController {
             SkillOutputDto skillToReturn = new SkillOutputDto(
                     skill.getSkillId(),
                     skill.getMonsterId(),
-                    skill.getNum(),
-                    skill.getDmg(),
+                    skill.getNumber(),
+                    skill.getDamage(),
                     skill.getRatio(),
                     skill.getCooldown(),
                     skill.getLvl(),
@@ -83,8 +91,8 @@ public class SkillController {
     public ResponseEntity<SkillOutputDto> updateSkill (@Valid @PathVariable String skillId, @Valid @RequestBody SkillHttpDto skillHttpDto) {
         skillService.updateSkill(
                 skillId,
-                skillHttpDto.getNum(),
-                skillHttpDto.getDmg(),
+                skillHttpDto.getNumber(),
+                skillHttpDto.getDamage(),
                 skillHttpDto.getRatio(),
                 skillHttpDto.getCooldown(),
                 skillHttpDto.getLvl());
@@ -92,8 +100,8 @@ public class SkillController {
         SkillOutputDto skillToReturn = new SkillOutputDto(
                 skillMongoDto.getSkillId(),
                 skillMongoDto.getMonsterId(),
-                skillMongoDto.getNum(),
-                skillMongoDto.getDmg(),
+                skillMongoDto.getNumber(),
+                skillMongoDto.getDamage(),
                 skillMongoDto.getRatio(),
                 skillMongoDto.getCooldown(),
                 skillMongoDto.getLvl(),

@@ -1,25 +1,28 @@
 package com.imt.Api_monstres.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.imt.Api_monstres.Repository.dto.MonsterMongoDto;
-import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
 import com.imt.Api_monstres.controller.dto.input.MonsterHttpDto;
 import com.imt.Api_monstres.controller.dto.output.MonsterOutputDto;
 import com.imt.Api_monstres.service.MonsterService;
-import com.imt.Api_monstres.service.SkillService;
+
 import jakarta.annotation.Nonnull;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
-//TODO: Ajouter @Operation, @ApiResponse, @Parameter et @Tag pour la doc swagger
-// Ajouter des Try catch pour les erreurs, et faire en sorte que les delete ne renvoient pas d'erreur si le monstre n'existe pas
 
 @RestController
 @RequestMapping("api/monsters")
@@ -27,7 +30,6 @@ import java.util.stream.Collectors;
 public class MonsterController {
 
     private final MonsterService monsterService;
-    private final SkillService skillService;
 
     @PostMapping("/create")
     public ResponseEntity<String> createMonster(@Valid @RequestBody MonsterHttpDto monsterHttpDto) {
@@ -37,7 +39,7 @@ public class MonsterController {
                 monsterHttpDto.getAtk(),
                 monsterHttpDto.getDef(),
                 monsterHttpDto.getVit(),
-                monsterHttpDto.getSkillsList());
+                monsterHttpDto.getSkills());
         return ResponseEntity.status(HttpStatus.CREATED).body(monsterId);
     }
 
@@ -70,21 +72,21 @@ public class MonsterController {
         return ResponseEntity.ok("Monster deleted");
     }
 
-        @PostMapping("/updateMonster/{monsterId}")
-        public ResponseEntity<MonsterOutputDto> updateMonster (@Valid @PathVariable String monsterId, @Valid String playerId,  @Valid @RequestBody MonsterHttpDto monsterHttpDto) {
-        monsterService.updateMonster(
-            monsterId,
-            playerId,
-            monsterHttpDto.getElement(),
-            monsterHttpDto.getHp(),
-            monsterHttpDto.getAtk(),
-            monsterHttpDto.getDef(),
-            monsterHttpDto.getVit(),
-            monsterHttpDto.getSkillsList());
-        MonsterMongoDto monsterMongoDto = monsterService.getMonsterById(monsterId);
-        MonsterOutputDto monsterToReturn = getMonsterOutputDto(monsterMongoDto);
-        return ResponseEntity.ok(monsterToReturn);
-        }
+    @PostMapping("/updateMonster/{monsterId}")
+    public ResponseEntity<MonsterOutputDto> updateMonster (@Valid @PathVariable String monsterId, @Valid String playerId,  @Valid @RequestBody MonsterHttpDto monsterHttpDto) {
+    monsterService.updateMonster(
+        monsterId,
+        playerId,
+        monsterHttpDto.getElement(),
+        monsterHttpDto.getHp(),
+        monsterHttpDto.getAtk(),
+        monsterHttpDto.getDef(),
+        monsterHttpDto.getVit(),
+        monsterHttpDto.getSkills());
+    MonsterMongoDto monsterMongoDto = monsterService.getMonsterById(monsterId);
+    MonsterOutputDto monsterToReturn = getMonsterOutputDto(monsterMongoDto);
+    return ResponseEntity.ok(monsterToReturn);
+    }
 
     @Nonnull
     private static MonsterOutputDto getMonsterOutputDto (MonsterMongoDto monsterMongoDto) {
@@ -96,6 +98,6 @@ public class MonsterController {
                 monsterMongoDto.getAtk(),
                 monsterMongoDto.getDef(),
                 monsterMongoDto.getVit(),
-                monsterMongoDto.getSkillIds());
+                monsterMongoDto.getSkills());
     }
 }

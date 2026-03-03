@@ -1,10 +1,12 @@
 package com.imt.Api_monstres.Repository.dto;
 
-import com.imt.Api_monstres.utils.Ratio;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
+
+import com.imt.Api_monstres.utils.Ratio;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
@@ -14,12 +16,12 @@ public class SkillMongoDto {
     @MongoId
     private final String skillId;
     private final String monsterId;
-    private final Integer num;
-    private final Double dmg;
+    private final Integer number;
+    private final Double damage;
     private final Ratio ratio;
-    private final Integer cooldown;
-    private final Integer lvl;
-    private final Integer lvlMax;
+    private final Double cooldown;
+    private final Double lvl;
+    private final Double lvlMax;
 }
 
 
