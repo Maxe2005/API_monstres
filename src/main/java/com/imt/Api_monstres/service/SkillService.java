@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.imt.Api_monstres.Repository.SkillRepository;
 import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
+import com.imt.Api_monstres.utils.Rank;
 import com.imt.Api_monstres.utils.Ratio;
 
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class SkillService {
     private final SkillRepository skillRepository;
 
 
-    public String createSkill (String monsterId, Integer number, Double damage, Ratio ratio, Double cooldown, Double lvl, Double lvlMax){
+    public String createSkill (String monsterId, Integer number, Double damage, Ratio ratio, Double cooldown, Double lvl, Double lvlMax, Rank rank){
         String id = UUID.randomUUID().toString();
         SkillMongoDto skillToSave = new SkillMongoDto(
                 id,
@@ -27,7 +28,8 @@ public class SkillService {
                 ratio,
                 cooldown,
                 lvl,
-                lvlMax);
+                lvlMax,
+                rank);
         return skillRepository.save(skillToSave);
     }
 
@@ -59,7 +61,8 @@ public class SkillService {
                 ratio != null ? ratio : existingSkill.getRatio(),
                 cooldown != null ? cooldown : existingSkill.getCooldown(),
                 lvl != null ? lvl : existingSkill.getLvl(),
-                existingSkill.getLvlMax());
+                existingSkill.getLvlMax(),
+                existingSkill.getRank());
         skillRepository.update(newSkillToSave);
     }
 }

@@ -1,5 +1,6 @@
 package com.imt.Api_monstres.controller.dto.output;
 
+import com.imt.Api_monstres.utils.Rank;
 import com.imt.Api_monstres.utils.Ratio;
 
 import lombok.Getter;
@@ -16,4 +17,5 @@ public class SkillOutputDto {
     private final Double cooldown;
     private final Double lvl;
     private final Double lvlMax;
+    private final Rank rank;
 }

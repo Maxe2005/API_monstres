@@ -55,7 +55,8 @@ public class SkillController {
                 skillMongoDto.getRatio(),
                 skillMongoDto.getCooldown(),
                 skillMongoDto.getLvl(),
-                skillMongoDto.getLvlMax());
+                skillMongoDto.getLvlMax(),
+                skillMongoDto.getRank());
         return ResponseEntity.ok(skillToReturn);
     }
 
@@ -75,7 +76,8 @@ public class SkillController {
                     skill.getRatio(),
                     skill.getCooldown(),
                     skill.getLvl(),
-                    skill.getLvlMax());
+                    skill.getLvlMax(),
+                    skill.getRank());
             listToReturn.add(skillToReturn);
         }
         return ResponseEntity.ok(listToReturn);
@@ -105,7 +107,8 @@ public class SkillController {
                 skillMongoDto.getRatio(),
                 skillMongoDto.getCooldown(),
                 skillMongoDto.getLvl(),
-                skillMongoDto.getLvlMax());
+                skillMongoDto.getLvlMax(),
+                skillMongoDto.getRank());
         return ResponseEntity.ok(skillToReturn);
     }
 }

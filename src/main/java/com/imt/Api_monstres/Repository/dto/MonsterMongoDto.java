@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import com.imt.Api_monstres.utils.Elementary;
+import com.imt.Api_monstres.utils.Rank;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -24,4 +25,5 @@ public class MonsterMongoDto {
     private final Double def;
     private final Double vit;
     private final List<String> skills;
+    private final Rank rank;
 }

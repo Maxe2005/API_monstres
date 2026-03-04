@@ -3,6 +3,7 @@ package com.imt.Api_monstres.Repository.dto;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
+import com.imt.Api_monstres.utils.Rank;
 import com.imt.Api_monstres.utils.Ratio;
 
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class SkillMongoDto {
     private final Double cooldown;
     private final Double lvl;
     private final Double lvlMax;
+    private final Rank rank;
 }
 
 

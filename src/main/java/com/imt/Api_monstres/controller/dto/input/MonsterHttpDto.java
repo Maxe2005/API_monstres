@@ -3,6 +3,7 @@ package com.imt.Api_monstres.controller.dto.input;
 import java.util.List;
 
 import com.imt.Api_monstres.utils.Elementary;
+import com.imt.Api_monstres.utils.Rank;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,5 +17,6 @@ public class MonsterHttpDto {
     private final Double def;
     private final Double vit;
     private final List<SkillHttpDto> skills;
+    private final Rank rank;
 
 }

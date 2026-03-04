@@ -39,7 +39,8 @@ public class MonsterController {
                 monsterHttpDto.getAtk(),
                 monsterHttpDto.getDef(),
                 monsterHttpDto.getVit(),
-                monsterHttpDto.getSkills());
+                monsterHttpDto.getSkills(),
+                monsterHttpDto.getRank());
         return ResponseEntity.status(HttpStatus.CREATED).body(monsterId);
     }
 
@@ -98,6 +99,7 @@ public class MonsterController {
                 monsterMongoDto.getAtk(),
                 monsterMongoDto.getDef(),
                 monsterMongoDto.getVit(),
-                monsterMongoDto.getSkills());
+                monsterMongoDto.getSkills(),
+                monsterMongoDto.getRank());
     }
 }

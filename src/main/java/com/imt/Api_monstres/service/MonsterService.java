@@ -1,16 +1,19 @@
 package com.imt.Api_monstres.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.stereotype.Service;
+
 import com.imt.Api_monstres.Repository.MonsterRepository;
 import com.imt.Api_monstres.Repository.dto.MonsterMongoDto;
 import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
 import com.imt.Api_monstres.controller.dto.input.SkillHttpDto;
 import com.imt.Api_monstres.utils.Elementary;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.imt.Api_monstres.utils.Rank;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +22,7 @@ public class MonsterService {
     private final MonsterRepository monsterRepository;
     private final SkillService skillService;
 
-    public String createMonster (Elementary element, Double hp, Double atk, Double def, Double vit, List<SkillHttpDto> skillsList){
+    public String createMonster (Elementary element, Double hp, Double atk, Double def, Double vit, List<SkillHttpDto> skillsList, Rank rank){
         String monsterId = UUID.randomUUID().toString();
         List<String> skillIds = new ArrayList<>();
         for (SkillHttpDto skill: skillsList) {
@@ -30,7 +33,8 @@ public class MonsterService {
                     skill.getRatio(),
                     skill.getCooldown(),
                     skill.getLvlMax(),
-                    skill.getLvlMax());
+                    skill.getLvlMax(),
+                    skill.getRank());
             skillIds.add(skillCreated);
         }
         MonsterMongoDto monsterToSave = new MonsterMongoDto(
@@ -41,7 +45,9 @@ public class MonsterService {
                 atk,
                 def,
                 vit,
-                skillIds);
+                skillIds,
+                rank
+            );
         return monsterRepository.save(monsterToSave);
     }
 
@@ -82,7 +88,8 @@ public class MonsterService {
                         sk.getRatio(),
                         sk.getCooldown(),
                         sk.getLvl(),
-                        sk.getLvlMax());
+                        sk.getLvlMax(),
+                        sk.getRank());
                 finalSkillIds.add(created);
             }
         } else {
@@ -100,7 +107,8 @@ public class MonsterService {
                 atk != null ? atk : existingMonster.getAtk(),
                 def != null ? def : existingMonster.getDef(),
                 vit != null ? vit : existingMonster.getVit(),
-                finalSkillIds);
+                finalSkillIds,
+                existingMonster.getRank());
         monsterRepository.update(newMonsterToSave);
     }
 }
