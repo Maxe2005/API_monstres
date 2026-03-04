@@ -20,8 +20,6 @@ import com.imt.Api_monstres.service.SkillService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-//TODO: Ajouter @Operation, @ApiResponse, @Parameter et @Tag pour la doc swagger
-// Ajouter des Try catch pour les erreurs, et faire en sorte que les delete ne renvoient pas d'erreur si le skill n'existe pas
 @RestController
 @RequestMapping("api/monsters/skills")
 @RequiredArgsConstructor
@@ -41,7 +39,7 @@ public class SkillController {
 //        return ResponseEntity.status(HttpStatus.CREATED).body(skill.getSkillId());
 //    }
 
-    @GetMapping("/{skillId}")
+    @GetMapping("/get/{skillId}")
     public ResponseEntity<SkillOutputDto> getSkillById(@Valid @PathVariable String skillId){
         SkillMongoDto skillMongoDto = skillService.getSkillById(skillId);
         if (skillMongoDto == null){
@@ -60,7 +58,7 @@ public class SkillController {
         return ResponseEntity.ok(skillToReturn);
     }
 
-    @GetMapping("/byMonsterId/{monsterId}")
+    @GetMapping("/getByMonsterId/{monsterId}")
     public ResponseEntity<List<SkillOutputDto>> getAllSkillsByMonsterId(@Valid @PathVariable String monsterId){
         List<SkillMongoDto> listSkills = skillService.getAllSkillsByMonsterId(monsterId);
         List<SkillOutputDto> listToReturn = new ArrayList<>();
@@ -83,7 +81,7 @@ public class SkillController {
         return ResponseEntity.ok(listToReturn);
     }
 
-    @DeleteMapping("/{skillId}")
+    @DeleteMapping("/delete/{skillId}")
     public ResponseEntity<String> deleteSkill (@Valid @PathVariable String skillId){
         skillService.deleteSkill((skillId));
         return ResponseEntity.ok("Skill deleted");

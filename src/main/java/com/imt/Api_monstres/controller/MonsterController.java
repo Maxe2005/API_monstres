@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.imt.Api_monstres.Repository.dto.MonsterMongoDto;
 import com.imt.Api_monstres.controller.dto.input.MonsterHttpDto;
+import com.imt.Api_monstres.controller.dto.output.CreateMonsterOutputDto;
 import com.imt.Api_monstres.controller.dto.output.MonsterOutputDto;
 import com.imt.Api_monstres.service.MonsterService;
 
@@ -32,7 +33,7 @@ public class MonsterController {
     private final MonsterService monsterService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createMonster(@Valid @RequestBody MonsterHttpDto monsterHttpDto) {
+    public ResponseEntity<CreateMonsterOutputDto> createMonster(@Valid @RequestBody MonsterHttpDto monsterHttpDto) {
         String monsterId = monsterService.createMonster(
                 monsterHttpDto.getElement(),
                 monsterHttpDto.getHp(),
@@ -41,10 +42,11 @@ public class MonsterController {
                 monsterHttpDto.getVit(),
                 monsterHttpDto.getSkills(),
                 monsterHttpDto.getRank());
-        return ResponseEntity.status(HttpStatus.CREATED).body(monsterId);
+        CreateMonsterOutputDto dtoToReturn = new CreateMonsterOutputDto(monsterId, "Monstre créé avec succès");
+        return ResponseEntity.status(HttpStatus.CREATED).body(dtoToReturn);
     }
 
-    @GetMapping("/{monsterId}")
+    @GetMapping("/get/{monsterId}")
     public ResponseEntity<MonsterOutputDto> getMonsterById(@Valid @PathVariable String monsterId) {
         MonsterMongoDto monsterMongoDto = monsterService.getMonsterById(monsterId);
         if (monsterMongoDto == null) {
@@ -54,7 +56,7 @@ public class MonsterController {
         return ResponseEntity.ok(monsterToReturn);
     }
 
-    @GetMapping("/byPlayerId/{playerId}")
+    @GetMapping("/getByPlayerId/{playerId}")
     public ResponseEntity<List<MonsterOutputDto>> getMonsterByPlayerId(@Valid @PathVariable String playerId) {
         List<MonsterMongoDto> listMonsters = monsterService.getAllMonstersByPlayerId(playerId);
         if (listMonsters.isEmpty()) {
@@ -67,7 +69,7 @@ public class MonsterController {
         return ResponseEntity.ok(listToReturn);
     }
 
-    @DeleteMapping("/{monsterId}")
+    @DeleteMapping("/delete/{monsterId}")
     public ResponseEntity<String> deleteMonster (@Valid @PathVariable String monsterId){
         monsterService.deleteMonster((monsterId));
         return ResponseEntity.ok("Monster deleted");
