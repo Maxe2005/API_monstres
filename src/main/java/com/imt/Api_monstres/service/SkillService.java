@@ -51,7 +51,7 @@ public class SkillService {
     }
 
 
-    public void updateSkill(String skillId, Integer num, Integer dmg, Ratio ratio, Integer cooldown, Integer lvl){
+    public void updateSkill(String skillId, Integer num, Integer dmg, Ratio ratio, Integer cooldown, Integer lvl, Integer lvlMax, Rank rank ){
         SkillMongoDto existingSkill = this.getSkillById(skillId);
         SkillMongoDto newSkillToSave = new SkillMongoDto(
                 skillId,
@@ -61,8 +61,8 @@ public class SkillService {
                 ratio != null ? ratio : existingSkill.getRatio(),
                 cooldown != null ? cooldown : existingSkill.getCooldown(),
                 lvl != null ? lvl : existingSkill.getLvl(),
-                existingSkill.getLvlMax(),
-                existingSkill.getRank());
-        skillRepository.update(newSkillToSave);
+                lvlMax != null ? lvlMax : existingSkill.getLvlMax(),
+                rank != null ? rank : existingSkill.getRank());
+                skillRepository.update(newSkillToSave);
     }
 }

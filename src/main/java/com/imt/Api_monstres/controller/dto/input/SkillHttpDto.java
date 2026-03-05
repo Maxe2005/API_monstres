@@ -3,11 +3,11 @@ package com.imt.api_monstres.controller.dto.input;
 import com.imt.api_monstres.utils.Rank;
 import com.imt.api_monstres.utils.Ratio;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SkillHttpDto {
     private final Integer number;
     private final Integer damage;

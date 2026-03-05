@@ -76,21 +76,22 @@ public class MonsterController {
         return ResponseEntity.ok("Monster deleted");
     }
 
-    @PostMapping("/updateMonster/{monsterId}")
-    public ResponseEntity<MonsterOutputDto> updateMonster (@Valid @PathVariable String monsterId,  @Valid @RequestBody MonsterHttpDto monsterHttpDto) {
-    monsterService.updateMonster(
-        monsterId,
-        monsterHttpDto.getPlayerId(),
-        monsterHttpDto.getElement(),
-        monsterHttpDto.getHp(),
-        monsterHttpDto.getAtk(),
-        monsterHttpDto.getDef(),
-        monsterHttpDto.getVit(),
-        monsterHttpDto.getSkills());
-    MonsterMongoDto monsterMongoDto = monsterService.getMonsterById(monsterId);
-    MonsterOutputDto monsterToReturn = getMonsterOutputDto(monsterMongoDto);
-    return ResponseEntity.ok(monsterToReturn);
-    }
+//    @PostMapping("/updateMonster/{monsterId}")
+//    public ResponseEntity<MonsterOutputDto> updateMonster (@Valid @PathVariable String monsterId, @Valid @RequestBody MonsterHttpDto monsterHttpDto) {
+//    monsterService.updateMonster(
+//        monsterId,
+//        monsterHttpDto.getPlayerId(),
+//        monsterHttpDto.getElement(),
+//        monsterHttpDto.getHp(),
+//        monsterHttpDto.getAtk(),
+//        monsterHttpDto.getDef(),
+//        monsterHttpDto.getVit(),
+//        monsterHttpDto.getSkills(),
+//        monsterHttpDto.getRank());
+//    MonsterMongoDto monsterMongoDto = monsterService.getMonsterById(monsterId);
+//    MonsterOutputDto monsterToReturn = getMonsterOutputDto(monsterMongoDto);
+//    return ResponseEntity.ok(monsterToReturn);
+//    }
 
     @Nonnull
     private static MonsterOutputDto getMonsterOutputDto (MonsterMongoDto monsterMongoDto) {
