@@ -22,7 +22,7 @@ public class MonsterService {
     private final MonsterRepository monsterRepository;
     private final SkillService skillService;
 
-    public String createMonster (String playerId,Elementary element, Double hp, Double atk, Double def, Double vit, List<SkillHttpDto> skillsList, Rank rank){
+    public String createMonster (String playerId,Elementary element, Integer hp, Integer atk, Integer def, Integer vit, List<SkillHttpDto> skillsList, Rank rank){
         String monsterId = UUID.randomUUID().toString();
         List<String> skillIds = new ArrayList<>();
         for (SkillHttpDto skill: skillsList) {
@@ -71,7 +71,7 @@ public class MonsterService {
         return monsterRepository.findAllByPlayerId(playerId);
     }
 
-    public void updateMonster(String monsterId, String playerId, Elementary element, Double hp, Double atk, Double def, Double vit, List<SkillHttpDto> skillHttpList)  {
+    public void updateMonster(String monsterId, String playerId, Elementary element, Integer hp, Integer atk, Integer def, Integer vit, List<SkillHttpDto> skillHttpList)  {
         MonsterMongoDto existingMonster = this.getMonsterById(monsterId);
         List<String> finalSkillIds = new ArrayList<>();
 

@@ -18,11 +18,11 @@ public class SkillMongoDto {
     private final String skillId;
     private final String monsterId;
     private final Integer number;
-    private final Double damage;
+    private final Integer damage;
     private final Ratio ratio;
-    private final Double cooldown;
-    private final Double lvl;
-    private final Double lvlMax;
+    private final Integer cooldown;
+    private final Integer lvl;
+    private final Integer lvlMax;
     private final Rank rank;
 }
 

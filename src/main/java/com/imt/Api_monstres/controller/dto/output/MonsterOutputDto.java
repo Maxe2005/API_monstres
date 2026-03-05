@@ -14,10 +14,10 @@ public class MonsterOutputDto {
     private final String monsterId;
     private final String playerId;
     private final Elementary element;
-    private final Double hp;
-    private final Double atk;
-    private final Double def;
-    private final Double vit;
+    private final Integer hp;
+    private final Integer atk;
+    private final Integer def;
+    private final Integer vit;
     private final List<String> skills;
     private final Rank rank;
 }

@@ -18,7 +18,7 @@ public class SkillService {
     private final SkillRepository skillRepository;
 
 
-    public String createSkill (String monsterId, Integer number, Double damage, Ratio ratio, Double cooldown, Double lvl, Double lvlMax, Rank rank){
+    public String createSkill (String monsterId, Integer number, Integer damage, Ratio ratio, Integer cooldown, Integer lvl, Integer lvlMax, Rank rank){
         String id = UUID.randomUUID().toString();
         SkillMongoDto skillToSave = new SkillMongoDto(
                 id,
@@ -51,7 +51,7 @@ public class SkillService {
     }
 
 
-    public void updateSkill(String skillId, Integer num, Double dmg, Ratio ratio, Double cooldown, Double lvl){
+    public void updateSkill(String skillId, Integer num, Integer dmg, Ratio ratio, Integer cooldown, Integer lvl){
         SkillMongoDto existingSkill = this.getSkillById(skillId);
         SkillMongoDto newSkillToSave = new SkillMongoDto(
                 skillId,
