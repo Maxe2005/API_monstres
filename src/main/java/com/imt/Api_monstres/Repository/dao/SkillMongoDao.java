@@ -1,7 +1,8 @@
-package com.imt.Api_monstres.Repository.dao;
+package com.imt.api_monstres.Repository.dao;
 
-import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.imt.api_monstres.Repository.dto.SkillMongoDto;
 
 import java.util.List;
 

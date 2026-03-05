@@ -1,4 +1,4 @@
-package com.imt.Api_monstres.utils;
+package com.imt.api_monstres.utils;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
-package com.imt.Api_monstres.controller.dto.input;
+package com.imt.api_monstres.controller.dto.input;
 
-import com.imt.Api_monstres.utils.Rank;
-import com.imt.Api_monstres.utils.Ratio;
+import com.imt.api_monstres.utils.Rank;
+import com.imt.api_monstres.utils.Ratio;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

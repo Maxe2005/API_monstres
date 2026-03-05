@@ -1,9 +1,10 @@
-package com.imt.Api_monstres.Repository;
+package com.imt.api_monstres.Repository;
 
-import com.imt.Api_monstres.Repository.dao.SkillMongoDao;
-import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+
+import com.imt.api_monstres.Repository.dao.SkillMongoDao;
+import com.imt.api_monstres.Repository.dto.SkillMongoDto;
 
 import java.util.List;
 import java.util.Optional;

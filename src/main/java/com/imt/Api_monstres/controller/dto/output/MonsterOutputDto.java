@@ -1,9 +1,9 @@
-package com.imt.Api_monstres.controller.dto.output;
+package com.imt.api_monstres.controller.dto.output;
 
 import java.util.List;
 
-import com.imt.Api_monstres.utils.Elementary;
-import com.imt.Api_monstres.utils.Rank;
+import com.imt.api_monstres.utils.Elementary;
+import com.imt.api_monstres.utils.Rank;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

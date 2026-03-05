@@ -1,4 +1,4 @@
-package com.imt.Api_monstres.controller;
+package com.imt.api_monstres.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
-import com.imt.Api_monstres.controller.dto.output.SkillOutputDto;
-import com.imt.Api_monstres.service.SkillService;
+import com.imt.api_monstres.Repository.dto.SkillMongoDto;
+import com.imt.api_monstres.controller.dto.output.SkillOutputDto;
+import com.imt.api_monstres.service.SkillService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

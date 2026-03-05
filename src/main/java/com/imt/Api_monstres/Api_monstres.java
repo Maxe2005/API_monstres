@@ -1,4 +1,4 @@
-package com.imt.Api_monstres;
+package com.imt.api_monstres;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

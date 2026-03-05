@@ -1,10 +1,10 @@
-package com.imt.Api_monstres.Repository.dto;
+package com.imt.api_monstres.Repository.dto;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import com.imt.Api_monstres.utils.Rank;
-import com.imt.Api_monstres.utils.Ratio;
+import com.imt.api_monstres.utils.Rank;
+import com.imt.api_monstres.utils.Ratio;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

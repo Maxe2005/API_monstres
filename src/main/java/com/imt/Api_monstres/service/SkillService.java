@@ -1,14 +1,14 @@
-package com.imt.Api_monstres.service;
+package com.imt.api_monstres.service;
 
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.imt.Api_monstres.Repository.SkillRepository;
-import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
-import com.imt.Api_monstres.utils.Rank;
-import com.imt.Api_monstres.utils.Ratio;
+import com.imt.api_monstres.Repository.SkillRepository;
+import com.imt.api_monstres.Repository.dto.SkillMongoDto;
+import com.imt.api_monstres.utils.Rank;
+import com.imt.api_monstres.utils.Ratio;
 
 import lombok.RequiredArgsConstructor;
 

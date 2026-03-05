@@ -1,4 +1,4 @@
-package com.imt.Api_monstres.controller.dto.output;
+package com.imt.api_monstres.controller.dto.output;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

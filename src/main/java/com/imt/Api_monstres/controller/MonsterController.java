@@ -1,4 +1,4 @@
-package com.imt.Api_monstres.controller;
+package com.imt.api_monstres.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.imt.Api_monstres.Repository.dto.MonsterMongoDto;
-import com.imt.Api_monstres.controller.dto.input.MonsterHttpDto;
-import com.imt.Api_monstres.controller.dto.output.CreateMonsterOutputDto;
-import com.imt.Api_monstres.controller.dto.output.MonsterOutputDto;
-import com.imt.Api_monstres.service.MonsterService;
+import com.imt.api_monstres.Repository.dto.MonsterMongoDto;
+import com.imt.api_monstres.controller.dto.input.MonsterHttpDto;
+import com.imt.api_monstres.controller.dto.output.CreateMonsterOutputDto;
+import com.imt.api_monstres.controller.dto.output.MonsterOutputDto;
+import com.imt.api_monstres.service.MonsterService;
 
 import jakarta.annotation.Nonnull;
 import jakarta.validation.Valid;

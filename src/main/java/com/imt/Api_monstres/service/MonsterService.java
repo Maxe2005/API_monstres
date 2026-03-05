@@ -1,4 +1,4 @@
-package com.imt.Api_monstres.service;
+package com.imt.api_monstres.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,12 +6,12 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.imt.Api_monstres.Repository.MonsterRepository;
-import com.imt.Api_monstres.Repository.dto.MonsterMongoDto;
-import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
-import com.imt.Api_monstres.controller.dto.input.SkillHttpDto;
-import com.imt.Api_monstres.utils.Elementary;
-import com.imt.Api_monstres.utils.Rank;
+import com.imt.api_monstres.Repository.MonsterRepository;
+import com.imt.api_monstres.Repository.dto.MonsterMongoDto;
+import com.imt.api_monstres.Repository.dto.SkillMongoDto;
+import com.imt.api_monstres.controller.dto.input.SkillHttpDto;
+import com.imt.api_monstres.utils.Elementary;
+import com.imt.api_monstres.utils.Rank;
 
 import lombok.RequiredArgsConstructor;
 
