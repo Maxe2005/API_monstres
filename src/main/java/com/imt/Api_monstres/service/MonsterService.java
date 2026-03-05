@@ -22,7 +22,7 @@ public class MonsterService {
     private final MonsterRepository monsterRepository;
     private final SkillService skillService;
 
-    public String createMonster (Elementary element, Double hp, Double atk, Double def, Double vit, List<SkillHttpDto> skillsList, Rank rank){
+    public String createMonster (String playerId,Elementary element, Double hp, Double atk, Double def, Double vit, List<SkillHttpDto> skillsList, Rank rank){
         String monsterId = UUID.randomUUID().toString();
         List<String> skillIds = new ArrayList<>();
         for (SkillHttpDto skill: skillsList) {
@@ -39,7 +39,7 @@ public class MonsterService {
         }
         MonsterMongoDto monsterToSave = new MonsterMongoDto(
                 monsterId,
-                null,
+                playerId,
                 element,
                 hp,
                 atk,

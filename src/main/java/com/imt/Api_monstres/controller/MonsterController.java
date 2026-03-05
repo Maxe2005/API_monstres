@@ -35,6 +35,7 @@ public class MonsterController {
     @PostMapping("/create")
     public ResponseEntity<CreateMonsterOutputDto> createMonster(@Valid @RequestBody MonsterHttpDto monsterHttpDto) {
         String monsterId = monsterService.createMonster(
+                monsterHttpDto.getPlayerId(),
                 monsterHttpDto.getElement(),
                 monsterHttpDto.getHp(),
                 monsterHttpDto.getAtk(),
@@ -76,10 +77,10 @@ public class MonsterController {
     }
 
     @PostMapping("/updateMonster/{monsterId}")
-    public ResponseEntity<MonsterOutputDto> updateMonster (@Valid @PathVariable String monsterId, @Valid String playerId,  @Valid @RequestBody MonsterHttpDto monsterHttpDto) {
+    public ResponseEntity<MonsterOutputDto> updateMonster (@Valid @PathVariable String monsterId,  @Valid @RequestBody MonsterHttpDto monsterHttpDto) {
     monsterService.updateMonster(
         monsterId,
-        playerId,
+        monsterHttpDto.getPlayerId(),
         monsterHttpDto.getElement(),
         monsterHttpDto.getHp(),
         monsterHttpDto.getAtk(),

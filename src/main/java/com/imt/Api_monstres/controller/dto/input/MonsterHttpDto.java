@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class MonsterHttpDto {
+    private final String playerId;
     private final Elementary element; 
     private final Double hp;
     private final Double atk;

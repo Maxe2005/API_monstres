@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum Stat {
+    HP("hp"),
     ATK("atk"),
     DEF("def"),
     VIT("vit");

@@ -7,13 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.imt.Api_monstres.Repository.dto.SkillMongoDto;
-import com.imt.Api_monstres.controller.dto.input.SkillHttpDto;
 import com.imt.Api_monstres.controller.dto.output.SkillOutputDto;
 import com.imt.Api_monstres.service.SkillService;
 
@@ -86,27 +83,27 @@ public class SkillController {
         skillService.deleteSkill((skillId));
         return ResponseEntity.ok("Skill deleted");
     }
-
-    @PostMapping("/updateSkill/{skillId}")
-    public ResponseEntity<SkillOutputDto> updateSkill (@Valid @PathVariable String skillId, @Valid @RequestBody SkillHttpDto skillHttpDto) {
-        skillService.updateSkill(
-                skillId,
-                skillHttpDto.getNumber(),
-                skillHttpDto.getDamage(),
-                skillHttpDto.getRatio(),
-                skillHttpDto.getCooldown(),
-                skillHttpDto.getLvl());
-        SkillMongoDto skillMongoDto = skillService.getSkillById(skillId);
-        SkillOutputDto skillToReturn = new SkillOutputDto(
-                skillMongoDto.getSkillId(),
-                skillMongoDto.getMonsterId(),
-                skillMongoDto.getNumber(),
-                skillMongoDto.getDamage(),
-                skillMongoDto.getRatio(),
-                skillMongoDto.getCooldown(),
-                skillMongoDto.getLvl(),
-                skillMongoDto.getLvlMax(),
-                skillMongoDto.getRank());
-        return ResponseEntity.ok(skillToReturn);
-    }
+    // Fonctionne pas, à revoir
+    // @PostMapping("/updateSkill/{skillId}")
+    // public ResponseEntity<SkillOutputDto> updateSkill (@Valid @PathVariable String skillId, @Valid @RequestBody SkillHttpDto skillHttpDto) {
+    //     skillService.updateSkill(
+    //             skillId,
+    //             skillHttpDto.getNumber(),
+    //             skillHttpDto.getDamage(),
+    //             skillHttpDto.getRatio(),
+    //             skillHttpDto.getCooldown(),
+    //             skillHttpDto.getLvl());
+    //     SkillMongoDto skillMongoDto = skillService.getSkillById(skillId);
+    //     SkillOutputDto skillToReturn = new SkillOutputDto(
+    //             skillMongoDto.getSkillId(),
+    //             skillMongoDto.getMonsterId(),
+    //             skillMongoDto.getNumber(),
+    //             skillMongoDto.getDamage(),
+    //             skillMongoDto.getRatio(),
+    //             skillMongoDto.getCooldown(),
+    //             skillMongoDto.getLvl(),
+    //             skillMongoDto.getLvlMax(),
+    //             skillMongoDto.getRank());
+    //     return ResponseEntity.ok(skillToReturn);
+    // }
 }
