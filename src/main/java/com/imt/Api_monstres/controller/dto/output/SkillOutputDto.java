@@ -1,0 +1,21 @@
+package com.imt.api_monstres.controller.dto.output;
+
+import com.imt.api_monstres.utils.Rank;
+import com.imt.api_monstres.utils.Ratio;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
+public class SkillOutputDto {
+    private final String skillId;
+    private final String monsterId;
+    private final Integer number;
+    private final Integer damage;
+    private final Ratio ratio;
+    private final Integer cooldown;
+    private final Integer lvl;
+    private final Integer lvlMax;
+    private final Rank rank;
+}

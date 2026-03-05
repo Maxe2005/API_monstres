@@ -1,13 +1,13 @@
-package com.imt.Api_monstres;
+package com.imt.api_monstres;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Demo2026Application {
+public class Api_monstres {
 
     public static void main(String[] args) {
-        SpringApplication.run(Demo2026Application.class, args);
+        SpringApplication.run(Api_monstres.class, args);
     }
 
 }

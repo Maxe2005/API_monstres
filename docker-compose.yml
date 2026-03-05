@@ -1,0 +1,24 @@
+services:
+  mongo-monsters:
+    image: mongo:latest
+    container_name: mongo-monsters
+    ports:
+      - "27021:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=gatcha-monsters-db
+    volumes:
+      - mongodb_monsters_data:/data/db
+
+  api-monstres:
+    build: .
+    container_name: api-montres
+    ports:
+      - "8083:8080"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo-monsters:27017/gatcha-monsters-db
+      - AUTH_API_URL=http://host.docker.internal:8080/user/verify-token
+    depends_on:
+      - mongo-monsters
+
+volumes:
+  mongodb_monsters_data:
