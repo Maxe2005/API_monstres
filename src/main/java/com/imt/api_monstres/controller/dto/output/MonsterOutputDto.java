@@ -18,6 +18,6 @@ public class MonsterOutputDto {
     private final Integer atk;
     private final Integer def;
     private final Integer vit;
-    private final List<String> skills;
+    private final List<SkillOutputDto> skills;
     private final Rank rank;
 }

@@ -1,5 +1,6 @@
 package com.imt.api_monstres.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.imt.api_monstres.Repository.SkillRepository;
 import com.imt.api_monstres.Repository.dto.SkillMongoDto;
+import com.imt.api_monstres.controller.dto.output.SkillOutputDto;
 import com.imt.api_monstres.utils.Rank;
 import com.imt.api_monstres.utils.Ratio;
 
@@ -42,17 +44,23 @@ public class SkillService {
         }
     }
 
-    public SkillMongoDto getSkillById (String skillId) {
-        return skillRepository.findSkillById(skillId).orElseThrow(() -> new RuntimeException("Skill introuvable :" + skillId));
+    public SkillOutputDto getSkillById (String skillId) {
+        SkillMongoDto skillMongo = skillRepository.findSkillById(skillId).orElseThrow(() -> new RuntimeException("Skill introuvable :" + skillId)) ;
+        return convertToOutputDto(skillMongo);
     }
 
-    public List<SkillMongoDto> getAllSkillsByMonsterId (String monsterId){
-        return skillRepository.findAllByMonsterId(monsterId);
+    public List<SkillOutputDto> getAllSkillsByMonsterId (String monsterId){
+        List<SkillMongoDto> listSkills = skillRepository.findAllByMonsterId(monsterId);
+        List<SkillOutputDto> listSkillsOutput = new ArrayList<>();
+        for (SkillMongoDto skillMongoDto : listSkills) {
+            listSkillsOutput.add(convertToOutputDto(skillMongoDto));
+        }
+        return listSkillsOutput;
     }
 
 
     public void updateSkill(String skillId, Integer num, Integer dmg, Ratio ratio, Integer cooldown, Integer lvl, Integer lvlMax, Rank rank ){
-        SkillMongoDto existingSkill = this.getSkillById(skillId);
+        SkillOutputDto existingSkill = this.getSkillById(skillId);
         SkillMongoDto newSkillToSave = new SkillMongoDto(
                 skillId,
                 existingSkill.getMonsterId(),
@@ -64,5 +72,18 @@ public class SkillService {
                 lvlMax != null ? lvlMax : existingSkill.getLvlMax(),
                 rank != null ? rank : existingSkill.getRank());
                 skillRepository.update(newSkillToSave);
+    }
+
+    private SkillOutputDto convertToOutputDto(SkillMongoDto skillMongoDto) {
+        return new SkillOutputDto(
+                skillMongoDto.getSkillId(),
+                skillMongoDto.getMonsterId(),
+                skillMongoDto.getNumber(),
+                skillMongoDto.getDamage(),
+                skillMongoDto.getRatio(),
+                skillMongoDto.getCooldown(),
+                skillMongoDto.getLvl(),
+                skillMongoDto.getLvlMax(),
+                skillMongoDto.getRank());
     }
 }

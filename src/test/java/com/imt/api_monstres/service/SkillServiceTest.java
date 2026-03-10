@@ -23,6 +23,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.imt.api_monstres.Repository.SkillRepository;
 import com.imt.api_monstres.Repository.dto.SkillMongoDto;
+import com.imt.api_monstres.controller.dto.output.SkillOutputDto;
 import com.imt.api_monstres.utils.Rank;
 import com.imt.api_monstres.utils.Ratio;
 import com.imt.api_monstres.utils.Stat;
@@ -85,13 +86,19 @@ public class SkillServiceTest {
 
     @Test
     void testGetAllSkillsByMonsterId() {
-        List<SkillMongoDto> list = Collections.singletonList(
-            new SkillMongoDto("s1", "monster", 1, 1, ratio, 1, 1, 1, Rank.COMMON));
-        when(skillRepository.findAllByMonsterId("monster")).thenReturn(list);
+        SkillMongoDto dto = new SkillMongoDto("s1", "monster", 1, 1, ratio, 1, 1, 1, Rank.COMMON);
+        when(skillRepository.findAllByMonsterId("monster")).thenReturn(Collections.singletonList(dto));
 
-        List<SkillMongoDto> result = skillService.getAllSkillsByMonsterId("monster");
+        List<SkillOutputDto> result = skillService.getAllSkillsByMonsterId("monster");
         assertEquals(1, result.size());
-        assertSame(list, result);
+        SkillOutputDto output = result.get(0);
+        assertEquals(dto.getSkillId(), output.getSkillId());
+        assertEquals(dto.getMonsterId(), output.getMonsterId());
+        assertEquals(dto.getDamage(), output.getDamage());
+        assertEquals(dto.getNumber(), output.getNumber());
+        assertSame(dto.getRatio(), output.getRatio());
+        assertEquals(dto.getCooldown(), output.getCooldown());
+        assertEquals(dto.getRank(), output.getRank());
     }
 
     @Test
@@ -99,8 +106,14 @@ public class SkillServiceTest {
         SkillMongoDto dto = new SkillMongoDto("s1", "monster", 1, 1, ratio, 1, 1, 1, Rank.COMMON);
         when(skillRepository.findSkillById("s1")).thenReturn(Optional.of(dto));
 
-        SkillMongoDto result = skillService.getSkillById("s1");
-        assertEquals(dto, result);
+        SkillOutputDto result = skillService.getSkillById("s1");
+        assertEquals(dto.getSkillId(), result.getSkillId());
+        assertEquals(dto.getMonsterId(), result.getMonsterId());
+        assertEquals(dto.getDamage(), result.getDamage());
+        assertEquals(dto.getNumber(), result.getNumber());
+        assertSame(dto.getRatio(), result.getRatio());
+        assertEquals(dto.getCooldown(), result.getCooldown());
+        assertEquals(dto.getRank(), result.getRank());
     }
 
     @Test
