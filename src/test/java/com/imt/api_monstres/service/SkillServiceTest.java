@@ -32,7 +32,7 @@ public class SkillServiceTest {
 
     @Mock
     SkillRepository skillRepository;
-
+    
     Ratio ratio;
 
     @InjectMocks
@@ -46,7 +46,6 @@ public class SkillServiceTest {
     @Test
     void testCreateSkill() {
         String expectedId = "generated-id";
-        // capture the argument to inspect its fields
         ArgumentCaptor<SkillMongoDto> captor = ArgumentCaptor.forClass(SkillMongoDto.class);
         when(skillRepository.save(any(SkillMongoDto.class))).thenReturn(expectedId);
 
