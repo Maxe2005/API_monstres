@@ -6,3 +6,8 @@ spring:
       uuid-representation: standard
       database: Api_monstres
       port: 27017
+
+gatcha:
+  auth-api:
+    host: "${AUTH_API_HOST:http://host.docker.internal}"
+    port: "${AUTH_API_PORT:8080}"
