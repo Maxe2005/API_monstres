@@ -1,6 +1,5 @@
 package com.imt.api_monstres.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -11,15 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.imt.api_monstres.Repository.dto.MonsterMongoDto;
 import com.imt.api_monstres.controller.dto.input.MonsterHttpDto;
 import com.imt.api_monstres.controller.dto.output.CreateMonsterOutputDto;
 import com.imt.api_monstres.controller.dto.output.MonsterOutputDto;
 import com.imt.api_monstres.service.MonsterService;
 
-import jakarta.annotation.Nonnull;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -48,26 +46,22 @@ public class MonsterController {
     }
 
     @GetMapping("/get/{monsterId}")
-    public ResponseEntity<MonsterOutputDto> getMonsterById(@Valid @PathVariable String monsterId) {
-        MonsterMongoDto monsterMongoDto = monsterService.getMonsterById(monsterId);
-        if (monsterMongoDto == null) {
+    public ResponseEntity<MonsterOutputDto> getMonsterById(@Valid @PathVariable String monsterId, @RequestParam(required = false) boolean withSkills) {
+        MonsterOutputDto monster = monsterService.getMonsterById(monsterId,withSkills);
+        if (monster == null) {
             return ResponseEntity.notFound().build();
         }
-        MonsterOutputDto monsterToReturn = getMonsterOutputDto(monsterMongoDto);
-        return ResponseEntity.ok(monsterToReturn);
+        return ResponseEntity.ok(monster);
     }
 
     @GetMapping("/getByPlayerId/{playerId}")
-    public ResponseEntity<List<MonsterOutputDto>> getMonsterByPlayerId(@Valid @PathVariable String playerId) {
-        List<MonsterMongoDto> listMonsters = monsterService.getAllMonstersByPlayerId(playerId);
-        if (listMonsters.isEmpty()) {
+    public ResponseEntity<List<MonsterOutputDto>> getMonsterByPlayerId(@Valid @PathVariable String playerId, @RequestParam(required = false) boolean withSkills) {
+        List<MonsterOutputDto> monsters = monsterService.getAllMonstersByPlayerId(playerId,withSkills);
+        if (monsters.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        List<MonsterOutputDto> listToReturn = new ArrayList<>();
-        for (MonsterMongoDto monster: listMonsters){
-            listToReturn.add(getMonsterOutputDto(monster));
-        }
-        return ResponseEntity.ok(listToReturn);
+        return ResponseEntity.ok(monsters);
+        
     }
 
     @DeleteMapping("/delete/{monsterId}")
@@ -92,18 +86,4 @@ public class MonsterController {
 //    MonsterOutputDto monsterToReturn = getMonsterOutputDto(monsterMongoDto);
 //    return ResponseEntity.ok(monsterToReturn);
 //    }
-
-    @Nonnull
-    private static MonsterOutputDto getMonsterOutputDto (MonsterMongoDto monsterMongoDto) {
-        return new MonsterOutputDto(
-                monsterMongoDto.getMonsterId(),
-                monsterMongoDto.getPlayerId(),
-                monsterMongoDto.getElement(),
-                monsterMongoDto.getHp(),
-                monsterMongoDto.getAtk(),
-                monsterMongoDto.getDef(),
-                monsterMongoDto.getVit(),
-                monsterMongoDto.getSkills(),
-                monsterMongoDto.getRank());
-    }
 }
