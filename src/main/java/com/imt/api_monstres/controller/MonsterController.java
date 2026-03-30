@@ -21,8 +21,6 @@ import com.imt.api_monstres.service.MonsterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-
-
 @RestController
 @RequestMapping("api/monsters")
 @RequiredArgsConstructor
@@ -46,8 +44,9 @@ public class MonsterController {
     }
 
     @GetMapping("/get/{monsterId}")
-    public ResponseEntity<MonsterOutputDto> getMonsterById(@Valid @PathVariable String monsterId, @RequestParam(required = false) boolean withSkills) {
-        MonsterOutputDto monster = monsterService.getMonsterById(monsterId,withSkills);
+    public ResponseEntity<MonsterOutputDto> getMonsterById(@Valid @PathVariable String monsterId,
+            @RequestParam(required = false) boolean withSkills) {
+        MonsterOutputDto monster = monsterService.getMonsterById(monsterId, withSkills);
         if (monster == null) {
             return ResponseEntity.notFound().build();
         }
@@ -55,35 +54,46 @@ public class MonsterController {
     }
 
     @GetMapping("/getByPlayerId/{playerId}")
-    public ResponseEntity<List<MonsterOutputDto>> getMonsterByPlayerId(@Valid @PathVariable String playerId, @RequestParam(required = false) boolean withSkills) {
-        List<MonsterOutputDto> monsters = monsterService.getAllMonstersByPlayerId(playerId,withSkills);
+    public ResponseEntity<List<MonsterOutputDto>> getMonsterByPlayerId(@Valid @PathVariable String playerId,
+            @RequestParam(required = false) boolean withSkills) {
+        List<MonsterOutputDto> monsters = monsterService.getAllMonstersByPlayerId(playerId, withSkills);
         if (monsters.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(monsters);
-        
+
+    }
+
+    @GetMapping("/getByIds")
+    public ResponseEntity<List<MonsterOutputDto>> getMonstersByIds(@RequestParam List<String> ids) {
+        List<MonsterOutputDto> monsters = monsterService.getMonstersByIds(ids);
+        if (monsters.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(monsters);
     }
 
     @DeleteMapping("/delete/{monsterId}")
-    public ResponseEntity<String> deleteMonster (@Valid @PathVariable String monsterId){
+    public ResponseEntity<String> deleteMonster(@Valid @PathVariable String monsterId) {
         monsterService.deleteMonster((monsterId));
         return ResponseEntity.ok("Monster deleted");
     }
 
-//    @PostMapping("/updateMonster/{monsterId}")
-//    public ResponseEntity<MonsterOutputDto> updateMonster (@Valid @PathVariable String monsterId, @Valid @RequestBody MonsterHttpDto monsterHttpDto) {
-//    monsterService.updateMonster(
-//        monsterId,
-//        monsterHttpDto.getPlayerId(),
-//        monsterHttpDto.getElement(),
-//        monsterHttpDto.getHp(),
-//        monsterHttpDto.getAtk(),
-//        monsterHttpDto.getDef(),
-//        monsterHttpDto.getVit(),
-//        monsterHttpDto.getSkills(),
-//        monsterHttpDto.getRank());
-//    MonsterMongoDto monsterMongoDto = monsterService.getMonsterById(monsterId);
-//    MonsterOutputDto monsterToReturn = getMonsterOutputDto(monsterMongoDto);
-//    return ResponseEntity.ok(monsterToReturn);
-//    }
+    // @PostMapping("/updateMonster/{monsterId}")
+    // public ResponseEntity<MonsterOutputDto> updateMonster (@Valid @PathVariable
+    // String monsterId, @Valid @RequestBody MonsterHttpDto monsterHttpDto) {
+    // monsterService.updateMonster(
+    // monsterId,
+    // monsterHttpDto.getPlayerId(),
+    // monsterHttpDto.getElement(),
+    // monsterHttpDto.getHp(),
+    // monsterHttpDto.getAtk(),
+    // monsterHttpDto.getDef(),
+    // monsterHttpDto.getVit(),
+    // monsterHttpDto.getSkills(),
+    // monsterHttpDto.getRank());
+    // MonsterMongoDto monsterMongoDto = monsterService.getMonsterById(monsterId);
+    // MonsterOutputDto monsterToReturn = getMonsterOutputDto(monsterMongoDto);
+    // return ResponseEntity.ok(monsterToReturn);
+    // }
 }
