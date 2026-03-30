@@ -73,6 +73,15 @@ public class MonsterController {
         return ResponseEntity.ok(monsters);
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity<List<MonsterOutputDto>> getAllMonsters() {
+        List<MonsterOutputDto> monsters = monsterService.getAllMonsters();
+        if (monsters.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(monsters);
+    }
+
     @DeleteMapping("/delete/{monsterId}")
     public ResponseEntity<String> deleteMonster(@Valid @PathVariable String monsterId) {
         monsterService.deleteMonster((monsterId));

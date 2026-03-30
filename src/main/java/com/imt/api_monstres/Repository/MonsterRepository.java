@@ -38,4 +38,8 @@ public class MonsterRepository {
     public void update(MonsterMongoDto monsterMongoDto) {
         monsterMongoDao.save(monsterMongoDto);
     }
+
+    public List<MonsterMongoDto> findAll() {
+        return monsterMongoDao.findAll();
+    }
 }

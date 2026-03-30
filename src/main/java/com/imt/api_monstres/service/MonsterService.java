@@ -130,7 +130,24 @@ public class MonsterService {
     }
 
     public List<MonsterOutputDto> getMonstersByIds(List<String> ids) {
-        List<MonsterMongoDto> monsters = monsterRepository.findAllByIds(ids);
+        List<MonsterMongoDto> monsters = monsterRepository.findAllById(ids);
+        return monsters.stream().map(monster -> {
+            List<SkillOutputDto> skills = skillService.getAllSkillsByMonsterId(monster.getMonsterId());
+            return new MonsterOutputDto(
+                    monster.getMonsterId(),
+                    monster.getPlayerId(),
+                    monster.getElement(),
+                    monster.getHp(),
+                    monster.getAtk(),
+                    monster.getDef(),
+                    monster.getVit(),
+                    skills,
+                    monster.getRank());
+        }).toList();
+    }
+
+    public List<MonsterOutputDto> getAllMonsters() {
+        List<MonsterMongoDto> monsters = monsterRepository.findAll();
         return monsters.stream().map(monster -> {
             List<SkillOutputDto> skills = skillService.getAllSkillsByMonsterId(monster.getMonsterId());
             return new MonsterOutputDto(
