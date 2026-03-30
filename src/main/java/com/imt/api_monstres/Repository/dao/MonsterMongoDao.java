@@ -9,5 +9,5 @@ import java.util.List;
 public interface MonsterMongoDao extends MongoRepository<MonsterMongoDto, String> {
     public List<MonsterMongoDto> findAllByPlayerId(String id);
 
-    public List<MonsterMongoDto> findAllByIds(List<String> ids);
+    public List<MonsterMongoDto> findAllById(Iterable<String> ids);
 }

@@ -31,7 +31,7 @@ public class MonsterRepository {
         return monsterMongoDao.findAllByPlayerId(playerId);
     }
 
-    public List<MonsterMongoDto> findAllByIds(List<String> ids) {
+    public List<MonsterMongoDto> findAllById(List<String> ids) {
         return monsterMongoDao.findAllById(ids);
     }
 
