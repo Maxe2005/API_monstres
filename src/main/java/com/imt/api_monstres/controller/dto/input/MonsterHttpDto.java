@@ -11,13 +11,20 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class MonsterHttpDto {
-    private final String playerId;
-    private final Elementary element; 
-    private final Integer hp;
-    private final Integer atk;
-    private final Integer def;
-    private final Integer vit;
-    private final List<SkillHttpDto> skills;
+    private final String name;
+    private final Elementary element;
+    private final StatsDto stats;
     private final Rank rank;
+    private final String cardDescription;
+    private final String imageUrl;
+    private final List<SkillHttpDto> skills;
 
+    @Getter
+    @RequiredArgsConstructor
+    public static class StatsDto {
+        private final Integer hp;
+        private final Integer atk;
+        private final Integer def;
+        private final Integer vit;
+    }
 }

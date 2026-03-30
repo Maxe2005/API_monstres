@@ -17,6 +17,8 @@ public class SkillMongoDto {
     @MongoId
     private final String skillId;
     private final String monsterId;
+    private final String name;
+    private final String description;
     private final Integer number;
     private final Integer damage;
     private final Ratio ratio;
@@ -25,5 +27,3 @@ public class SkillMongoDto {
     private final Integer lvlMax;
     private final Rank rank;
 }
-
-

@@ -1,7 +1,7 @@
 package com.imt.api_monstres.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -9,11 +9,10 @@ import org.springframework.stereotype.Service;
 import com.imt.api_monstres.Repository.MonsterRepository;
 import com.imt.api_monstres.Repository.SkillRepository;
 import com.imt.api_monstres.Repository.dto.MonsterMongoDto;
-import com.imt.api_monstres.controller.dto.input.SkillHttpDto;
+import com.imt.api_monstres.controller.dto.input.MonsterHttpDto;
 import com.imt.api_monstres.controller.dto.output.MonsterOutputDto;
 import com.imt.api_monstres.controller.dto.output.SkillOutputDto;
-import com.imt.api_monstres.utils.Elementary;
-import com.imt.api_monstres.utils.Rank;
+import com.imt.api_monstres.mapper.MonsterMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,32 +24,12 @@ public class MonsterService {
     private final SkillRepository skillRepository;
     private final SkillService skillService;
 
-    public String createMonster(String playerId, Elementary element, Integer hp, Integer atk, Integer def, Integer vit,
-            List<SkillHttpDto> skillsList, Rank rank) {
+    public String createMonster(MonsterHttpDto dto) {
         String monsterId = UUID.randomUUID().toString();
-        List<String> skillIds = new ArrayList<>();
-        for (SkillHttpDto skill : skillsList) {
-            String skillCreated = skillService.createSkill(
-                    monsterId,
-                    skill.getNumber(),
-                    skill.getDamage(),
-                    skill.getRatio(),
-                    skill.getCooldown(),
-                    skill.getLvlMax(),
-                    skill.getLvlMax(),
-                    skill.getRank());
-            skillIds.add(skillCreated);
-        }
-        MonsterMongoDto monsterToSave = new MonsterMongoDto(
-                monsterId,
-                playerId,
-                element,
-                hp,
-                atk,
-                def,
-                vit,
-                skillIds,
-                rank);
+        List<String> skillIds = dto.getSkills().stream()
+                .map(skill -> skillService.createSkill(monsterId, skill))
+                .toList();
+        MonsterMongoDto monsterToSave = MonsterMapper.toMongoEntity(monsterId, dto, skillIds);
         return monsterRepository.save(monsterToSave);
     }
 
@@ -58,8 +37,8 @@ public class MonsterService {
         if (monsterRepository.findMonsterById(id).isPresent()) {
             List<SkillOutputDto> listSkills = skillService.getAllSkillsByMonsterId(id);
             for (SkillOutputDto skill : listSkills) {
-                if (skillRepository.findSkillById(skill.getSkillId()).isPresent()) {
-                    skillService.deleteSkill(skill.getSkillId());
+                if (skillRepository.findSkillById(skill.getId()).isPresent()) {
+                    skillService.deleteSkill(skill.getId());
                 }
             }
             monsterRepository.delete(id);
@@ -71,60 +50,17 @@ public class MonsterService {
     public MonsterOutputDto getMonsterById(String monsterId, boolean withSkills) {
         MonsterMongoDto monster = monsterRepository.findMonsterById(monsterId)
                 .orElseThrow(() -> new RuntimeException("Monstre introuvable : " + monsterId));
-        if (withSkills) {
-            List<SkillOutputDto> skills = skillService.getAllSkillsByMonsterId(monsterId);
-            return new MonsterOutputDto(
-                    monster.getMonsterId(),
-                    monster.getPlayerId(),
-                    monster.getElement(),
-                    monster.getHp(),
-                    monster.getAtk(),
-                    monster.getDef(),
-                    monster.getVit(),
-                    skills,
-                    monster.getRank());
-        } else {
-            return new MonsterOutputDto(
-                    monster.getMonsterId(),
-                    monster.getPlayerId(),
-                    monster.getElement(),
-                    monster.getHp(),
-                    monster.getAtk(),
-                    monster.getDef(),
-                    monster.getVit(),
-                    null,
-                    monster.getRank());
-        }
+        List<SkillOutputDto> skills = withSkills ? skillService.getAllSkillsByMonsterId(monsterId) : null;
+        return MonsterMapper.toOutputDto(monster, skills);
     }
 
     public List<MonsterOutputDto> getAllMonstersByPlayerId(String playerId, boolean withSkills) {
         List<MonsterMongoDto> monsters = monsterRepository.findAllByPlayerId(playerId);
         List<MonsterOutputDto> outputList = new ArrayList<>();
         for (MonsterMongoDto monster : monsters) {
-            if (withSkills) {
-                List<SkillOutputDto> skills = skillService.getAllSkillsByMonsterId(monster.getMonsterId());
-                outputList.add(new MonsterOutputDto(
-                        monster.getMonsterId(),
-                        monster.getPlayerId(),
-                        monster.getElement(),
-                        monster.getHp(),
-                        monster.getAtk(),
-                        monster.getDef(),
-                        monster.getVit(),
-                        skills,
-                        monster.getRank()));
-            } else {
-                outputList.add(new MonsterOutputDto(
-                        monster.getMonsterId(),
-                        monster.getPlayerId(),
-                        monster.getElement(),
-                        monster.getHp(),
-                        monster.getAtk(),
-                        monster.getDef(),
-                        monster.getVit(),
-                        null,
-                        monster.getRank()));
-            }
+            List<SkillOutputDto> skills = withSkills ? skillService.getAllSkillsByMonsterId(monster.getMonsterId())
+                    : null;
+            outputList.add(this.mapToOutputDto(monster, skills));
         }
         return outputList;
     }
@@ -133,16 +69,7 @@ public class MonsterService {
         List<MonsterMongoDto> monsters = monsterRepository.findAllById(ids);
         return monsters.stream().map(monster -> {
             List<SkillOutputDto> skills = skillService.getAllSkillsByMonsterId(monster.getMonsterId());
-            return new MonsterOutputDto(
-                    monster.getMonsterId(),
-                    monster.getPlayerId(),
-                    monster.getElement(),
-                    monster.getHp(),
-                    monster.getAtk(),
-                    monster.getDef(),
-                    monster.getVit(),
-                    skills,
-                    monster.getRank());
+            return this.mapToOutputDto(monster, skills);
         }).toList();
     }
 
@@ -150,17 +77,24 @@ public class MonsterService {
         List<MonsterMongoDto> monsters = monsterRepository.findAll();
         return monsters.stream().map(monster -> {
             List<SkillOutputDto> skills = skillService.getAllSkillsByMonsterId(monster.getMonsterId());
-            return new MonsterOutputDto(
-                    monster.getMonsterId(),
-                    monster.getPlayerId(),
-                    monster.getElement(),
-                    monster.getHp(),
-                    monster.getAtk(),
-                    monster.getDef(),
-                    monster.getVit(),
-                    skills,
-                    monster.getRank());
+            return this.mapToOutputDto(monster, skills);
         }).toList();
+    }
+
+    public MonsterOutputDto mapToOutputDto(MonsterMongoDto monster, List<SkillOutputDto> skills) {
+        return new MonsterOutputDto(
+                monster.getMonsterId(),
+                monster.getName(),
+                monster.getElement(),
+                new MonsterOutputDto.StatsDto(
+                        monster.getHp(),
+                        monster.getAtk(),
+                        monster.getDef(),
+                        monster.getVit()),
+                monster.getRank(),
+                monster.getCardDescription(),
+                monster.getImageUrl(),
+                skills);
     }
 
     // public void updateMonster(String monsterId, String playerId, Elementary

@@ -30,23 +30,16 @@ public class MonsterController {
 
     @PostMapping("/create")
     public ResponseEntity<CreateMonsterOutputDto> createMonster(@Valid @RequestBody MonsterHttpDto monsterHttpDto) {
-        String monsterId = monsterService.createMonster(
-                monsterHttpDto.getPlayerId(),
-                monsterHttpDto.getElement(),
-                monsterHttpDto.getHp(),
-                monsterHttpDto.getAtk(),
-                monsterHttpDto.getDef(),
-                monsterHttpDto.getVit(),
-                monsterHttpDto.getSkills(),
-                monsterHttpDto.getRank());
+        String monsterId = monsterService.createMonster(monsterHttpDto);
         CreateMonsterOutputDto dtoToReturn = new CreateMonsterOutputDto(monsterId, "Monstre créé avec succès");
         return ResponseEntity.status(HttpStatus.CREATED).body(dtoToReturn);
     }
 
     @GetMapping("/get/{monsterId}")
     public ResponseEntity<MonsterOutputDto> getMonsterById(@Valid @PathVariable String monsterId,
-            @RequestParam(required = false) boolean withSkills) {
-        MonsterOutputDto monster = monsterService.getMonsterById(monsterId, withSkills);
+            @RequestParam(required = false) Object withSkills) {
+        boolean withSkillsBool = withSkills != null && Boolean.parseBoolean(withSkills.toString());
+        MonsterOutputDto monster = monsterService.getMonsterById(monsterId, withSkillsBool);
         if (monster == null) {
             return ResponseEntity.notFound().build();
         }
@@ -55,13 +48,13 @@ public class MonsterController {
 
     @GetMapping("/getByPlayerId/{playerId}")
     public ResponseEntity<List<MonsterOutputDto>> getMonsterByPlayerId(@Valid @PathVariable String playerId,
-            @RequestParam(required = false) boolean withSkills) {
-        List<MonsterOutputDto> monsters = monsterService.getAllMonstersByPlayerId(playerId, withSkills);
+            @RequestParam(required = false) Object withSkills) {
+        boolean withSkillsBool = withSkills != null && Boolean.parseBoolean(withSkills.toString());
+        List<MonsterOutputDto> monsters = monsterService.getAllMonstersByPlayerId(playerId, withSkillsBool);
         if (monsters.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(monsters);
-
     }
 
     @GetMapping("/getByIds")
@@ -88,21 +81,4 @@ public class MonsterController {
         return ResponseEntity.ok("Monster deleted");
     }
 
-    // @PostMapping("/updateMonster/{monsterId}")
-    // public ResponseEntity<MonsterOutputDto> updateMonster (@Valid @PathVariable
-    // String monsterId, @Valid @RequestBody MonsterHttpDto monsterHttpDto) {
-    // monsterService.updateMonster(
-    // monsterId,
-    // monsterHttpDto.getPlayerId(),
-    // monsterHttpDto.getElement(),
-    // monsterHttpDto.getHp(),
-    // monsterHttpDto.getAtk(),
-    // monsterHttpDto.getDef(),
-    // monsterHttpDto.getVit(),
-    // monsterHttpDto.getSkills(),
-    // monsterHttpDto.getRank());
-    // MonsterMongoDto monsterMongoDto = monsterService.getMonsterById(monsterId);
-    // MonsterOutputDto monsterToReturn = getMonsterOutputDto(monsterMongoDto);
-    // return ResponseEntity.ok(monsterToReturn);
-    // }
 }

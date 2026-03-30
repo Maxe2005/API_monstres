@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class SkillHttpDto {
+    private final String name;
+    private final String description;
     private final Integer number;
     private final Integer damage;
     private final Ratio ratio;
@@ -17,4 +19,3 @@ public class SkillHttpDto {
     private final Integer lvlMax;
     private final Rank rank;
 }
-

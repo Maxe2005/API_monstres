@@ -8,11 +8,11 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 import com.imt.api_monstres.utils.Elementary;
 import com.imt.api_monstres.utils.Rank;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Document(collection = "monsters") //Nom de la table de MongoDB
 public class MonsterMongoDto {
 
@@ -26,4 +26,7 @@ public class MonsterMongoDto {
     private final Integer vit;
     private final List<String> skills;
     private final Rank rank;
+    private final String name;
+    private final String cardDescription;
+    private final String imageUrl;
 }
