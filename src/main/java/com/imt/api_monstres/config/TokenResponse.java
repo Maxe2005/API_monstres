@@ -1,5 +1,8 @@
 package com.imt.api_monstres.config;
 
-public record TokenResponse(String user) {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record TokenResponse(String user, String role) {
 
 }
