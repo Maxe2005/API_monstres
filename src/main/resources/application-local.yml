@@ -1,4 +1,8 @@
+# Dev local (mvnw spring-boot:run) contre la stack de l'orchestrateur GatchaApi :
+# mongo-monsters y est exposé sur le port hôte 27021.
 spring:
   data:
     mongodb:
         host: localhost
+        port: 27021
+        database: monsters_db
