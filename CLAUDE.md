@@ -18,7 +18,7 @@ No linting/formatting tooling is configured for this service (unlike `API_invoca
 
 ## Git workflow (required)
 
-For any piece of work beyond a trivial one-line fix: create a dedicated branch (`feat/...`, `fix/...`, `perf/...`) from the integration branch (`master` here — the `dev` branch that used to serve this role is stale, doesn't even carry this file, and should not be branched from), commit in atomic steps with conventional-commit messages in French (`feat:`/`fix:`/`perf:`/`docs:` plus a body explaining the why), then merge back with `--no-ff`. Never commit sizeable work directly on the integration branch.
+For any piece of work beyond a trivial one-line fix: create a dedicated branch (`feat/...`, `fix/...`, `perf/...`) from `development`, commit in atomic steps with conventional-commit messages in French (`feat:`/`fix:`/`perf:`/`docs:` plus a body explaining the why), then merge back with `--no-ff`. Never commit sizeable work directly on `development` or `master`.
 
 ## Architecture
 
