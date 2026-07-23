@@ -29,9 +29,11 @@ public class SkillMapper {
                 entity.getSkillId(),
                 entity.getName(),
                 entity.getDescription(),
+                entity.getNumber(),
                 entity.getDamage(),
                 new SkillOutputDto.RatioDto(entity.getRatio().getStat().name(), entity.getRatio().getPercent()),
                 entity.getCooldown(),
+                entity.getLvl(),
                 entity.getLvlMax(),
                 entity.getRank());
     }

@@ -12,6 +12,7 @@ import com.imt.api_monstres.Repository.dto.MonsterMongoDto;
 import com.imt.api_monstres.controller.dto.input.MonsterHttpDto;
 import com.imt.api_monstres.controller.dto.output.MonsterOutputDto;
 import com.imt.api_monstres.controller.dto.output.SkillOutputDto;
+import com.imt.api_monstres.exception.MonsterNotFoundException;
 import com.imt.api_monstres.mapper.MonsterMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -43,13 +44,13 @@ public class MonsterService {
             }
             monsterRepository.delete(id);
         } else {
-            throw new RuntimeException("Monstre introuvable :" + id);
+            throw new MonsterNotFoundException(id);
         }
     }
 
     public MonsterOutputDto getMonsterById(String monsterId, boolean withSkills) {
         MonsterMongoDto monster = monsterRepository.findMonsterById(monsterId)
-                .orElseThrow(() -> new RuntimeException("Monstre introuvable : " + monsterId));
+                .orElseThrow(() -> new MonsterNotFoundException(monsterId));
         List<SkillOutputDto> skills = withSkills ? skillService.getAllSkillsByMonsterId(monsterId) : null;
         return MonsterMapper.toOutputDto(monster, skills);
     }
