@@ -16,7 +16,7 @@ public class MonsterMapper {
     public static MonsterMongoDto toMongoEntity(String monsterId, MonsterHttpDto dto, List<String> skillIds) {
         return new MonsterMongoDto(
                 monsterId,
-                null,
+                dto.getPlayerId(),
                 dto.getElement(),
                 dto.getStats().getHp(),
                 dto.getStats().getAtk(),
@@ -32,6 +32,7 @@ public class MonsterMapper {
     public static MonsterOutputDto toOutputDto(MonsterMongoDto entity, List<SkillOutputDto> skills) {
         return new MonsterOutputDto(
                 entity.getMonsterId(),
+                entity.getPlayerId(),
                 entity.getName(),
                 entity.getElement(),
                 new MonsterOutputDto.StatsDto(
