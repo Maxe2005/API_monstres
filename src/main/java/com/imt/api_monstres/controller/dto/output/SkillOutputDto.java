@@ -10,9 +10,11 @@ public class SkillOutputDto {
     private final String id;
     private final String name;
     private final String description;
+    private final Integer number;
     private final Integer damage;
     private final RatioDto ratio;
     private final Integer cooldown;
+    private final Integer lvl;
     private final Integer lvlMax;
     private final Rank rank;
 
