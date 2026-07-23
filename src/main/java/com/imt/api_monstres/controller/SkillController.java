@@ -46,29 +46,4 @@ public class SkillController {
         skillService.deleteSkill((skillId));
         return ResponseEntity.ok("Skill deleted");
     }
-
-//    @PostMapping("/updateSkill/{skillId}")
-//    public ResponseEntity<SkillOutputDto> updateSkill (@Valid @PathVariable String skillId, @Valid @RequestBody SkillHttpDto skillHttpDto) {
-//        skillService.updateSkill(
-//                skillId,
-//                skillHttpDto.getNumber(),
-//                skillHttpDto.getDamage(),
-//                skillHttpDto.getRatio(),
-//                skillHttpDto.getCooldown(),
-//                skillHttpDto.getLvl(),
-//                skillHttpDto.getLvlMax(),
-//                skillHttpDto.getRank());
-//        SkillMongoDto skillMongoDto = skillService.getSkillById(skillId);
-//        SkillOutputDto skillToReturn = new SkillOutputDto(
-//                skillMongoDto.getSkillId(),
-//                skillMongoDto.getMonsterId(),
-//                skillMongoDto.getNumber(),
-//                skillMongoDto.getDamage(),
-//                skillMongoDto.getRatio(),
-//                skillMongoDto.getCooldown(),
-//                skillMongoDto.getLvl(),
-//                skillMongoDto.getLvlMax(),
-//                skillMongoDto.getRank());
-//        return ResponseEntity.ok(skillToReturn);
-//    }
 }
