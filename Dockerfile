@@ -1,7 +1,16 @@
-FROM maven:3.9.6-amazoncorretto-21 as build
+# Contexte de build = racine du repo GatchaApi (voir docker-compose.yaml), pour pouvoir
+# construire et installer la lib partagée gatcha-common-security avant ce service.
+FROM maven:3.9.6-amazoncorretto-21 AS common-build
+WORKDIR /common
+COPY gatcha-common-security/pom.xml .
+COPY gatcha-common-security/src ./src
+RUN mvn -q install -DskipTests
+
+FROM maven:3.9.6-amazoncorretto-21 AS build
+COPY --from=common-build /root/.m2 /root/.m2
 RUN mkdir -p /Api_monstres
-COPY src /Api_monstres/src
-COPY pom.xml /Api_monstres
+COPY API_monstres/src /Api_monstres/src
+COPY API_monstres/pom.xml /Api_monstres
 WORKDIR /Api_monstres
 RUN mvn clean package
 
