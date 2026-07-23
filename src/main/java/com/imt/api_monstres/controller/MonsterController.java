@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,11 +20,13 @@ import com.imt.api_monstres.controller.dto.output.MonsterOutputDto;
 import com.imt.api_monstres.service.MonsterService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("api/monsters")
 @RequiredArgsConstructor
+@Validated
 public class MonsterController {
 
     private final MonsterService monsterService;
@@ -36,10 +39,9 @@ public class MonsterController {
     }
 
     @GetMapping("/get/{monsterId}")
-    public ResponseEntity<MonsterOutputDto> getMonsterById(@Valid @PathVariable String monsterId,
-            @RequestParam(required = false) Object withSkills) {
-        boolean withSkillsBool = withSkills != null && Boolean.parseBoolean(withSkills.toString());
-        MonsterOutputDto monster = monsterService.getMonsterById(monsterId, withSkillsBool);
+    public ResponseEntity<MonsterOutputDto> getMonsterById(@NotBlank @PathVariable String monsterId,
+            @RequestParam(defaultValue = "false") boolean withSkills) {
+        MonsterOutputDto monster = monsterService.getMonsterById(monsterId, withSkills);
         if (monster == null) {
             return ResponseEntity.notFound().build();
         }
@@ -47,10 +49,9 @@ public class MonsterController {
     }
 
     @GetMapping("/getByPlayerId/{playerId}")
-    public ResponseEntity<List<MonsterOutputDto>> getMonsterByPlayerId(@Valid @PathVariable String playerId,
-            @RequestParam(required = false) Object withSkills) {
-        boolean withSkillsBool = withSkills != null && Boolean.parseBoolean(withSkills.toString());
-        List<MonsterOutputDto> monsters = monsterService.getAllMonstersByPlayerId(playerId, withSkillsBool);
+    public ResponseEntity<List<MonsterOutputDto>> getMonsterByPlayerId(@NotBlank @PathVariable String playerId,
+            @RequestParam(defaultValue = "false") boolean withSkills) {
+        List<MonsterOutputDto> monsters = monsterService.getAllMonstersByPlayerId(playerId, withSkills);
         if (monsters.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -76,8 +77,8 @@ public class MonsterController {
     }
 
     @DeleteMapping("/delete/{monsterId}")
-    public ResponseEntity<String> deleteMonster(@Valid @PathVariable String monsterId) {
-        monsterService.deleteMonster((monsterId));
+    public ResponseEntity<String> deleteMonster(@NotBlank @PathVariable String monsterId) {
+        monsterService.deleteMonster(monsterId);
         return ResponseEntity.ok("Monster deleted");
     }
 
