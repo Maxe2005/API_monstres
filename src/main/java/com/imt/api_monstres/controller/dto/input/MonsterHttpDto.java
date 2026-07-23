@@ -17,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MonsterHttpDto {
     @NotBlank
+    private final String playerId;
+    @NotBlank
     private final String name;
     @NotNull
     private final Elementary element;

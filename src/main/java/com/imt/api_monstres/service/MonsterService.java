@@ -85,6 +85,7 @@ public class MonsterService {
     public MonsterOutputDto mapToOutputDto(MonsterMongoDto monster, List<SkillOutputDto> skills) {
         return new MonsterOutputDto(
                 monster.getMonsterId(),
+                monster.getPlayerId(),
                 monster.getName(),
                 monster.getElement(),
                 new MonsterOutputDto.StatsDto(

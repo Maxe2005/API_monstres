@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MonsterOutputDto {
     private final String id;
+    private final String playerId;
     private final String name;
     private final Elementary element;
     private final StatsDto stats;
