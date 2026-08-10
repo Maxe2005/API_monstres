@@ -11,3 +11,8 @@ gatcha:
   auth-api:
     host: "${AUTH_API_HOST:http://host.docker.internal}"
     port: "${AUTH_API_PORT:8080}"
+  # Sidecar dev-token-provider (Story 1.1 / AD-8) — n'a d'effet que si le profil Spring "dev-local"
+  # est actif (DEV_LOCAL_SPRING_PROFILE) ; DevAutoAuthConfig ne lit ces propriétés que dans ce cas.
+  dev-token-provider:
+    host: "${DEV_TOKEN_PROVIDER_HOST:http://dev-token-provider}"
+    port: "${DEV_TOKEN_PROVIDER_PORT:9876}"
