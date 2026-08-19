@@ -1,5 +1,7 @@
 package com.imt.api_monstres.config;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +41,8 @@ public class AuthInterceptor extends com.imt.commonsecurity.auth.AbstractAuthInt
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws IOException {
         String requestId = request.getHeader(X_REQUEST_ID);
         if (requestId != null) {
             MDC.put("X-Request-Id", requestId);
@@ -50,7 +53,8 @@ public class AuthInterceptor extends com.imt.commonsecurity.auth.AbstractAuthInt
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+            throws Exception {
         MDC.remove("X-Request-Id");
         super.afterCompletion(request, response, handler, ex);
     }
