@@ -49,7 +49,13 @@ public class AuthInterceptor extends com.imt.commonsecurity.auth.AbstractAuthInt
             logger.debug("X-Request-Id extrait de la requête entrante : {}", requestId);
         }
 
-        return super.preHandle(request, response, handler);
+        boolean authorized = super.preHandle(request, response, handler);
+        if (!authorized) {
+            // preHandle renvoie false => afterCompletion ne sera jamais invoqué par Spring :
+            // nettoyer le MDC ici pour éviter qu'un ID stale contamine le thread réutilisé.
+            MDC.remove("X-Request-Id");
+        }
+        return authorized;
     }
 
     @Override

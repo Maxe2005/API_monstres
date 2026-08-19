@@ -16,3 +16,9 @@ gatcha:
   dev-token-provider:
     host: "${DEV_TOKEN_PROVIDER_HOST:http://dev-token-provider}"
     port: "${DEV_TOKEN_PROVIDER_PORT:9876}"
+
+# Story 2.1 — corrélation X-Request-Id : le pattern console par défaut n'affiche pas le MDC, on
+# ajoute donc l'identifiant (clé MDC posée par l'AuthInterceptor) à chaque ligne de log.
+logging:
+  pattern:
+    level: "%5p [%X{X-Request-Id:-}]"
